@@ -1,0 +1,30 @@
+{
+  "categories": [
+    {"id": "cartridges", "name": "Картриджи"},
+    {"id": "vaporizers", "name": "Испарители"},
+    {"id": "liquids", "name": "Жидкости"}
+  ],
+  "products": [
+    {
+      "id": "1",
+      "categoryId": "cartridges",
+      "name": "Картридж Vaporesso XROS",
+      "price": 15,
+      "image": "https://placehold.co/400x400/232e3c/ffffff?text=Vaporesso"
+    },
+    {
+      "id": "2",
+      "categoryId": "cartridges",
+      "name": "Картридж Vmate",
+      "price": 15,
+      "image": "https://placehold.co/400x400/232e3c/ffffff?text=Vmate"
+    },
+    {
+      "id": "3",
+      "categoryId": "liquids",
+      "name": "Жидкость Husky 30ml",
+      "price": 25,
+      "image": "https://placehold.co/400x400/232e3c/ffffff?text=Husky"
+    }
+  ]
+}
