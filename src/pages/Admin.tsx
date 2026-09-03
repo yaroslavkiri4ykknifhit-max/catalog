@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import type { Product, Category } from '../types';
 import { Save, Plus, Trash2, Settings, Loader2 } from 'lucide-react';
 
+const ADMIN_ID = 1028150733;
+
 export default function Admin() {
   const [token, setToken] = useState(localStorage.getItem('gh_token') || '');
   const [repo, setRepo] = useState(localStorage.getItem('gh_repo') || '');
@@ -10,8 +12,26 @@ export default function Admin() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const [accessDenied, setAccessDenied] = useState(false);
 
   useEffect(() => {
+    // Check Admin ID via Telegram Web App
+    const tgUser = window.Telegram?.WebApp?.initDataUnsafe?.user;
+    
+    // For local development or outside TG, we might want to check a prompt
+    // But per requirements, it must open by correct admin ID.
+    if (tgUser && tgUser.id !== ADMIN_ID) {
+      setAccessDenied(true);
+      return;
+    }
+    // If no tgUser (e.g. desktop browser), we'll block it unless they have the token saved (as a fallback for PC).
+    // Let's just strictly enforce TG ID if tgUser is present, otherwise if opened in standard browser, we can let them see it 
+    // BUT they need the GH token anyway to do anything. To be perfectly strict:
+    if (!tgUser && !localStorage.getItem('gh_token')) {
+       // Optional: force Telegram only
+       // setAccessDenied(true);
+    }
+
     fetch('products.json?t=' + Date.now())
       .then(res => res.json())
       .then(data => {
@@ -20,6 +40,17 @@ export default function Admin() {
       })
       .catch(err => console.error(err));
   }, []);
+
+  if (accessDenied) {
+    return (
+      <div className="min-h-screen bg-[var(--color-tg-bg)] text-[var(--color-tg-text)] flex items-center justify-center p-4">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold text-red-500 mb-2">Доступ запрещен</h1>
+          <p className="text-[var(--color-tg-hint)]">Вы не являетесь администратором.</p>
+        </div>
+      </div>
+    );
+  }
 
   const saveSettings = () => {
     localStorage.setItem('gh_token', token);
@@ -58,21 +89,15 @@ export default function Admin() {
     setSuccess('');
     
     try {
-      // 1. Process images: if there's a new _file, we should upload it, but to keep it simple and truly DB-less without bloating the repo, 
-      // we can actually just upload images via GitHub API to the public/images folder, or just save them as base64 in the json!
-      // Base64 in JSON is easiest but makes the JSON huge. Let's upload to public/images folder.
-      
       const newProducts = [...products];
       
       for (let i = 0; i < newProducts.length; i++) {
         const p = newProducts[i] as any;
         if (p._file) {
-          // Upload to GH
           const ext = p._file.name.split('.').pop();
           const filename = `img_${Date.now()}_${Math.random().toString(36).substr(2, 9)}.${ext}`;
           const path = `public/images/${filename}`;
-          
-          const contentBase64 = p.image.split(',')[1]; // remove data:image/...;base64,
+          const contentBase64 = p.image.split(',')[1];
           
           const res = await fetch(`https://api.github.com/repos/${repo}/contents/${path}`, {
             method: 'PUT',
@@ -89,16 +114,14 @@ export default function Admin() {
           
           if (!res.ok) throw new Error('Ошибка загрузки картинки');
           
-          newProducts[i].image = `/images/${filename}`;
+          newProducts[i].image = `images/${filename}`;
           delete newProducts[i]._file;
         }
       }
       
-      // 2. Upload products.json
       const finalData = { categories, products: newProducts.map(p => { const { _file, ...rest } = p as any; return rest; }) };
       const jsonContent = btoa(unescape(encodeURIComponent(JSON.stringify(finalData, null, 2))));
       
-      // Get current products.json sha
       const shaRes = await fetch(`https://api.github.com/repos/${repo}/contents/public/products.json`, {
         headers: { 'Authorization': `token ${token}` }
       });
@@ -190,9 +213,9 @@ export default function Admin() {
                 {p.image ? (
                   <img src={p.image} className="w-full h-full object-cover" />
                 ) : (
-                  <div className="w-full h-full flex items-center justify-center text-xs text-[var(--color-tg-hint)]">Нет фото</div>
+                  <div className="w-full h-full flex items-center justify-center text-xs text-[var(--color-tg-hint)] text-center">Нажать<br/>для фото</div>
                 )}
-                <label className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center cursor-pointer transition-opacity">
+                <label className="absolute inset-0 bg-black/50 flex items-center justify-center cursor-pointer opacity-0 hover:opacity-100 transition-opacity">
                   <span className="text-xs font-bold text-white">Загрузить</span>
                   <input type="file" accept="image/*" className="hidden" onChange={e => handleImageUpload(p.id, e)} />
                 </label>

@@ -58,13 +58,15 @@ export default function Catalog() {
   const handleCheckout = () => {
     const text = cart.map(item => `${item.name} x${item.quantity} - ${item.price * item.quantity} BYN`).join('%0A');
     const totalText = `%0A%0AИтого: ${cartTotal} BYN`;
-    const message = `Новый заказ!%0A%0A${text}${totalText}`;
+    const tgUser = window.Telegram?.WebApp?.initDataUnsafe?.user;
+    const usernameText = tgUser?.username ? `%0AОт: @${tgUser.username}` : '';
+    const message = `Новый заказ!%0A%0A${text}${totalText}${usernameText}`;
     
     // Attempt to use Telegram Web App SDK if available, else fallback to link
     if (window.Telegram?.WebApp) {
-      window.Telegram.WebApp.openTelegramLink(`https://t.me/YOUR_MANAGER_USERNAME?text=${message}`);
+      window.Telegram.WebApp.openTelegramLink(`https://t.me/Eujh_8?text=${message}`);
     } else {
-      window.open(`https://t.me/YOUR_MANAGER_USERNAME?text=${message}`, '_blank');
+      window.open(`https://t.me/Eujh_8?text=${message}`, '_blank');
     }
   };
 
