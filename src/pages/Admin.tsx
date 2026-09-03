@@ -12,7 +12,7 @@ export default function Admin() {
   const [success, setSuccess] = useState('');
 
   useEffect(() => {
-    fetch('/products.json?t=' + Date.now())
+    fetch('products.json?t=' + Date.now())
       .then(res => res.json())
       .then(data => {
         setCategories(data.categories || []);
