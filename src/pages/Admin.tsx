@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import type { Product, Category } from '../types';
+import type { Product, Category, CatalogData } from '../types';
 import { Save, Plus, Trash2, Settings, Loader2 } from 'lucide-react';
 
 const ADMIN_ID = 1028150733;
@@ -9,34 +9,28 @@ export default function Admin() {
   const [repo, setRepo] = useState(localStorage.getItem('gh_repo') || '');
   const [categories, setCategories] = useState<Category[]>([]);
   const [products, setProducts] = useState<Product[]>([]);
+  const [botToken, setBotToken] = useState('');
+  const [adminId, setAdminId] = useState(ADMIN_ID.toString());
+  
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [accessDenied, setAccessDenied] = useState(false);
 
   useEffect(() => {
-    // Check Admin ID via Telegram Web App
     const tgUser = window.Telegram?.WebApp?.initDataUnsafe?.user;
-    
-    // For local development or outside TG, we might want to check a prompt
-    // But per requirements, it must open by correct admin ID.
     if (tgUser && tgUser.id !== ADMIN_ID) {
       setAccessDenied(true);
       return;
     }
-    // If no tgUser (e.g. desktop browser), we'll block it unless they have the token saved (as a fallback for PC).
-    // Let's just strictly enforce TG ID if tgUser is present, otherwise if opened in standard browser, we can let them see it 
-    // BUT they need the GH token anyway to do anything. To be perfectly strict:
-    if (!tgUser && !localStorage.getItem('gh_token')) {
-       // Optional: force Telegram only
-       // setAccessDenied(true);
-    }
 
-    fetch('products.json?t=' + Date.now())
+    fetch(`${import.meta.env.BASE_URL}products.json?t=${Date.now()}`)
       .then(res => res.json())
-      .then(data => {
+      .then((data: CatalogData) => {
         setCategories(data.categories || []);
         setProducts(data.products || []);
+        if (data.botToken) setBotToken(data.botToken);
+        if (data.adminId) setAdminId(data.adminId);
       })
       .catch(err => console.error(err));
   }, []);
@@ -55,7 +49,7 @@ export default function Admin() {
   const saveSettings = () => {
     localStorage.setItem('gh_token', token);
     localStorage.setItem('gh_repo', repo);
-    setSuccess('Настройки сохранены локально.');
+    setSuccess('Настройки GitHub сохранены локально.');
     setTimeout(() => setSuccess(''), 3000);
   };
 
@@ -69,10 +63,7 @@ export default function Admin() {
   const handleImageUpload = async (productId: string, e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files?.[0]) return;
     const file = e.target.files[0];
-    
-    // Convert to base64 to show immediately
     const b64 = await toBase64(file);
-    
     setProducts(prev => prev.map(p => 
       p.id === productId ? { ...p, image: b64, _file: file } : p
     ));
@@ -80,7 +71,7 @@ export default function Admin() {
 
   const publishChanges = async () => {
     if (!token || !repo) {
-      setError('Введите токен и репозиторий');
+      setError('Введите токен и репозиторий GitHub');
       return;
     }
     
@@ -95,7 +86,7 @@ export default function Admin() {
         const p = newProducts[i] as any;
         if (p._file) {
           const ext = p._file.name.split('.').pop();
-          const filename = `img_${Date.now()}_${Math.random().toString(36).substr(2, 9)}.${ext}`;
+          const filename = `img_${Date.now()}_${Math.random().toString(36).substring(2, 9)}.${ext}`;
           const path = `public/images/${filename}`;
           const contentBase64 = p.image.split(',')[1];
           
@@ -112,14 +103,19 @@ export default function Admin() {
             })
           });
           
-          if (!res.ok) throw new Error('Ошибка загрузки картинки');
+          if (!res.ok) throw new Error('Ошибка загрузки картинки. Проверьте токен.');
           
           newProducts[i].image = `images/${filename}`;
           delete newProducts[i]._file;
         }
       }
       
-      const finalData = { categories, products: newProducts.map(p => { const { _file, ...rest } = p as any; return rest; }) };
+      const finalData: CatalogData = { 
+        categories, 
+        botToken,
+        adminId,
+        products: newProducts.map(p => { const { _file, ...rest } = p as any; return rest; }) 
+      };
       const jsonContent = btoa(unescape(encodeURIComponent(JSON.stringify(finalData, null, 2))));
       
       const shaRes = await fetch(`https://api.github.com/repos/${repo}/contents/public/products.json`, {
@@ -167,14 +163,10 @@ export default function Admin() {
     setProducts(prev => prev.map(p => p.id === id ? { ...p, [field]: value } : p));
   };
 
-  const removeProduct = (id: string) => {
-    setProducts(prev => prev.filter(p => p.id !== id));
-  };
-
   return (
     <div className="min-h-screen bg-[var(--color-tg-bg)] text-[var(--color-tg-text)] p-4 max-w-2xl mx-auto pb-24">
       <h1 className="text-2xl font-bold mb-6 flex items-center gap-2">
-        <Settings /> Управление каталогом
+        <Settings /> Управление
       </h1>
       
       <div className="bg-[var(--color-tg-secondary-bg)] p-4 rounded-xl mb-6 space-y-3">
@@ -188,7 +180,7 @@ export default function Admin() {
         />
         <input 
           type="text" 
-          placeholder="Репозиторий (например: username/vape-catalog)" 
+          placeholder="Репозиторий (username/vape-catalog)" 
           value={repo} 
           onChange={e => setRepo(e.target.value)}
           className="w-full bg-[var(--color-tg-bg)] p-2 rounded-lg text-sm border border-transparent focus:border-[var(--color-tg-primary)] outline-none"
@@ -196,6 +188,25 @@ export default function Admin() {
         <button onClick={saveSettings} className="px-4 py-2 bg-[var(--color-tg-bg)] text-[var(--color-tg-primary)] rounded-lg text-sm font-medium">
           Сохранить настройки
         </button>
+      </div>
+
+      <div className="bg-[var(--color-tg-secondary-bg)] p-4 rounded-xl mb-6 space-y-3">
+        <h2 className="font-semibold text-lg border-b border-[var(--color-tg-bg)] pb-2 mb-2">Настройки уведомлений (Телеграм)</h2>
+        <p className="text-xs text-[var(--color-tg-hint)]">Чтобы заказы приходили автоматически, введите токен любого вашего бота (от @BotFather) и ваш ID.</p>
+        <input 
+          type="text" 
+          placeholder="Токен бота (123456:AAH...)" 
+          value={botToken} 
+          onChange={e => setBotToken(e.target.value)}
+          className="w-full bg-[var(--color-tg-bg)] p-2 rounded-lg text-sm border border-transparent focus:border-[var(--color-tg-primary)] outline-none"
+        />
+        <input 
+          type="text" 
+          placeholder="Ваш Telegram ID (1028150733)" 
+          value={adminId} 
+          onChange={e => setAdminId(e.target.value)}
+          className="w-full bg-[var(--color-tg-bg)] p-2 rounded-lg text-sm border border-transparent focus:border-[var(--color-tg-primary)] outline-none"
+        />
       </div>
 
       <div className="flex justify-between items-center mb-4">
@@ -245,9 +256,19 @@ export default function Admin() {
                   </select>
                 </div>
               </div>
-              <button onClick={() => removeProduct(p.id)} className="p-2 h-fit text-red-400 bg-red-400/10 rounded-lg">
+              <button onClick={() => setProducts(products.filter(x => x.id !== p.id))} className="p-2 h-fit text-red-400 bg-red-400/10 rounded-lg">
                 <Trash2 size={18} />
               </button>
+            </div>
+            
+            <div className="mt-2 pt-2 border-t border-[var(--color-tg-bg)]">
+              <input 
+                type="text" 
+                value={(p.options || []).join(', ')} 
+                onChange={e => updateProduct(p.id, 'options', e.target.value.split(',').map(s => s.trim()).filter(s => s))}
+                className="w-full bg-[var(--color-tg-bg)] p-2 rounded-lg text-sm outline-none"
+                placeholder="Варианты (вкусы) через запятую: Яблоко, Манго, Вишня"
+              />
             </div>
           </div>
         ))}
