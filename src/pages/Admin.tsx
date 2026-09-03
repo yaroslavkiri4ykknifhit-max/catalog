@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import type { Product, Category, CatalogData } from '../types';
 import { Save, Plus, Trash2, Settings, Loader2 } from 'lucide-react';
 
-const ADMIN_ID = 1028150733;
+const ADMIN_ID = 2117489924;
 
 export default function Admin() {
   const [token, setToken] = useState(localStorage.getItem('gh_token') || '');

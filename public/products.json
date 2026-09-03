@@ -10,21 +10,25 @@
       "categoryId": "cartridges",
       "name": "Картридж Vaporesso XROS",
       "price": 15,
-      "image": "https://placehold.co/400x400/232e3c/ffffff?text=Vaporesso"
+      "image": "https://placehold.co/400x400/232e3c/ffffff?text=Vaporesso",
+      "options": ["0.6 Ом", "0.8 Ом", "1.0 Ом", "1.2 Ом"]
     },
     {
       "id": "2",
       "categoryId": "cartridges",
       "name": "Картридж Vmate",
       "price": 15,
-      "image": "https://placehold.co/400x400/232e3c/ffffff?text=Vmate"
+      "image": "https://placehold.co/400x400/232e3c/ffffff?text=Vmate",
+      "options": ["0.7 Ом", "1.2 Ом"]
     },
     {
       "id": "3",
       "categoryId": "liquids",
       "name": "Жидкость Husky 30ml",
       "price": 25,
-      "image": "https://placehold.co/400x400/232e3c/ffffff?text=Husky"
+      "image": "https://placehold.co/400x400/232e3c/ffffff?text=Husky",
+      "options": ["Манго-Лед", "Клубника-Мята", "Арбузный Бабл-Гам"]
     }
-  ]
+  ],
+  "adminId": "2117489924"
 }
