@@ -1,13 +1,14 @@
 @import "tailwindcss";
 
 @theme {
-  --color-tg-bg: var(--tg-theme-bg-color, #18222d);
+  --color-tg-bg: var(--tg-theme-bg-color, #130f1c);
   --color-tg-text: var(--tg-theme-text-color, #ffffff);
-  --color-tg-hint: var(--tg-theme-hint-color, #b1c3d5);
-  --color-tg-link: var(--tg-theme-link-color, #62bcf9);
-  --color-tg-primary: var(--tg-theme-button-color, #2AABEE);
-  --color-tg-primary-text: var(--tg-theme-button-text-color, #ffffff);
-  --color-tg-secondary-bg: var(--tg-theme-secondary-bg-color, #232e3c);
+  --color-tg-hint: var(--tg-theme-hint-color, #a78bfa); /* light purple hint */
+  --color-tg-link: var(--tg-theme-link-color, #c084fc);
+  --color-tg-primary: #7c3aed; /* Deep purple matching logo */
+  --color-tg-primary-text: #ffffff;
+  --color-tg-secondary-bg: #1e1b2e; /* Dark purple/gray */
+  --color-gold: #d4af37;
 }
 
 body {
@@ -16,4 +17,17 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   min-height: 100vh;
+}
+
+/* Custom scrollbar to match theme */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #4c1d95;
+  border-radius: 10px;
 }

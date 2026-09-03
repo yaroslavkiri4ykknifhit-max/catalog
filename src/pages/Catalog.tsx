@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { ShoppingCart, Package, Trash2, CheckCircle2 } from 'lucide-react';
-import type { Product, Category, CartItem, CatalogData } from '../types';
+import type { Product, Category, CartItem } from '../types';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export default function Catalog() {
@@ -12,14 +12,15 @@ export default function Catalog() {
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
   const [cart, setCart] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const [loading, setLoading] = useState(true);
+  
+  
+  const [showSplash, setShowSplash] = useState(true);
   
   const [clientUsername, setClientUsername] = useState('');
   const [orderSuccess, setOrderSuccess] = useState(false);
   const [orderLoading, setOrderLoading] = useState(false);
   
   useEffect(() => {
-    // Try to get TG username if available
     const tgUser = window.Telegram?.WebApp?.initDataUnsafe?.user;
     if (tgUser?.username) {
       setClientUsername(tgUser.username);
@@ -27,9 +28,12 @@ export default function Catalog() {
   }, []);
 
   useEffect(() => {
-    fetch(`${import.meta.env.BASE_URL}products.json?t=${Date.now()}`)
-      .then(res => res.json())
-      .then((data: CatalogData) => {
+    // Artificial delay for splash screen so user can see the logo
+    const minSplashTime = new Promise(resolve => setTimeout(resolve, 1500));
+    const fetchData = fetch(`${import.meta.env.BASE_URL}products.json?t=${Date.now()}`).then(res => res.json());
+
+    Promise.all([fetchData, minSplashTime])
+      .then(([data]) => {
         setCategories(data.categories || []);
         setProducts(data.products || []);
         if (data.botToken) setBotToken(data.botToken);
@@ -38,11 +42,13 @@ export default function Catalog() {
         if (data.categories?.length > 0) {
           setActiveCategory(data.categories[0].id);
         }
-        setLoading(false);
+        
+        setTimeout(() => setShowSplash(false), 400); // fade out time
       })
       .catch(err => {
         console.error(err);
-        setLoading(false);
+        
+        setShowSplash(false);
       });
   }, []);
 
@@ -87,7 +93,8 @@ export default function Catalog() {
     ).join('\n');
     const totalText = `\n\nИтого: ${cartTotal} BYN`;
     
-    const usernameText = `\nОт: @${clientUsername.replace('@', '')}`;
+    const tgUser = window.Telegram?.WebApp?.initDataUnsafe?.user;
+    const usernameText = tgUser?.username ? `\nОт: @${tgUser.username}` : `\nОт: @${clientUsername.replace('@', '')}`;
     const message = `Новый заказ!\n\n${text}${totalText}${usernameText}`;
     
     if (botToken && adminId) {
@@ -110,7 +117,6 @@ export default function Catalog() {
         alert('Ошибка при отправке заказа.');
       }
     } else {
-      // Fallback if bot is not configured
       alert('Ошибка: Бот не настроен администратором.');
     }
     setOrderLoading(false);
@@ -118,23 +124,51 @@ export default function Catalog() {
 
   const filteredProducts = products.filter(p => p.categoryId === activeCategory);
 
-  if (loading) {
-    return <div className="flex h-screen items-center justify-center">Загрузка...</div>;
-  }
-
   return (
-    <div className="min-h-screen pb-24 relative">
-      <div className="sticky top-0 z-10 bg-[var(--color-tg-bg)] border-b border-[var(--color-tg-secondary-bg)] p-4 flex justify-between items-center">
-        <h1 className="text-xl font-bold flex items-center gap-2">
-          <Package className="text-[var(--color-tg-primary)]" /> Vape Empire
+    <div className="min-h-screen pb-24 relative bg-[var(--color-tg-bg)]">
+      {/* Splash Screen */}
+      <AnimatePresence>
+        {showSplash && (
+          <motion.div 
+            initial={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.4 }}
+            className="fixed inset-0 z-50 bg-[#130f1c] flex flex-col items-center justify-center"
+          >
+            <motion.div
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.5, ease: "easeOut" }}
+              className="w-48 h-48 rounded-full overflow-hidden shadow-[0_0_40px_rgba(124,58,237,0.4)] mb-8 border-2 border-[#7c3aed]"
+            >
+              <img src={`${import.meta.env.BASE_URL}logo.jpg`} alt="Vape Empire" className="w-full h-full object-cover" />
+            </motion.div>
+            <div className="w-32 h-1 bg-[#1e1b2e] rounded-full overflow-hidden">
+              <motion.div 
+                className="h-full bg-gradient-to-r from-[#7c3aed] to-[#c084fc]"
+                initial={{ width: "0%" }}
+                animate={{ width: "100%" }}
+                transition={{ duration: 1.5, ease: "easeInOut" }}
+              />
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <div className="sticky top-0 z-10 bg-[#130f1c]/90 backdrop-blur-md border-b border-[var(--color-tg-secondary-bg)] p-4 flex justify-between items-center">
+        <h1 className="text-xl font-bold flex items-center gap-3">
+          <div className="w-8 h-8 rounded-full overflow-hidden border border-[var(--color-tg-primary)]">
+            <img src={`${import.meta.env.BASE_URL}logo.jpg`} alt="Logo" className="w-full h-full object-cover" />
+          </div>
+          Vape Empire
         </h1>
         <button 
           onClick={() => setIsCartOpen(true)}
-          className="relative p-2 rounded-full bg-[var(--color-tg-secondary-bg)] text-[var(--color-tg-text)]"
+          className="relative p-2.5 rounded-full bg-[var(--color-tg-secondary-bg)] text-[var(--color-tg-text)] shadow-sm"
         >
           <ShoppingCart size={20} />
           {cartCount > 0 && (
-            <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+            <span className="absolute -top-1 -right-1 bg-gradient-to-r from-pink-500 to-purple-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
               {cartCount}
             </span>
           )}
@@ -146,9 +180,9 @@ export default function Catalog() {
           <button
             key={cat.id}
             onClick={() => setActiveCategory(cat.id)}
-            className={`whitespace-nowrap px-4 py-2 rounded-full font-medium transition-colors ${
+            className={`whitespace-nowrap px-5 py-2.5 rounded-xl font-semibold transition-all ${
               activeCategory === cat.id 
-                ? 'bg-[var(--color-tg-primary)] text-[var(--color-tg-primary-text)]' 
+                ? 'bg-gradient-to-r from-[#7c3aed] to-[#c084fc] text-white shadow-lg shadow-[#7c3aed]/30' 
                 : 'bg-[var(--color-tg-secondary-bg)] text-[var(--color-tg-hint)]'
             }`}
           >
@@ -157,7 +191,7 @@ export default function Catalog() {
         ))}
       </div>
 
-      <div className="p-4 grid grid-cols-2 gap-4">
+      <div className="p-4 grid grid-cols-2 gap-3">
         {filteredProducts.map(product => (
           <ProductCard key={product.id} product={product} onAdd={addToCart} />
         ))}
@@ -171,14 +205,14 @@ export default function Catalog() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setIsCartOpen(false)}
-              className="fixed inset-0 bg-black/60 z-40 backdrop-blur-sm"
+              className="fixed inset-0 bg-black/70 z-40 backdrop-blur-sm"
             />
             <motion.div 
               initial={{ y: '100%' }}
               animate={{ y: 0 }}
               exit={{ y: '100%' }}
               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className="fixed bottom-0 left-0 right-0 h-[85vh] bg-[var(--color-tg-bg)] rounded-t-3xl z-50 flex flex-col shadow-[0_-10px_40px_rgba(0,0,0,0.3)]"
+              className="fixed bottom-0 left-0 right-0 h-[85vh] bg-[var(--color-tg-bg)] rounded-t-3xl z-50 flex flex-col shadow-[0_-10px_40px_rgba(0,0,0,0.5)] border-t border-[var(--color-tg-secondary-bg)]"
             >
               <div className="p-4 border-b border-[var(--color-tg-secondary-bg)] flex items-center justify-between">
                 <h2 className="text-xl font-bold flex items-center gap-2">
@@ -190,7 +224,7 @@ export default function Catalog() {
                     setIsCartOpen(false);
                     if (orderSuccess) setOrderSuccess(false);
                   }}
-                  className="p-2 bg-[var(--color-tg-secondary-bg)] rounded-full text-[var(--color-tg-hint)]"
+                  className="p-2 bg-[var(--color-tg-secondary-bg)] rounded-full text-[var(--color-tg-hint)] hover:text-white transition-colors"
                 >
                   Закрыть
                 </button>
@@ -198,44 +232,47 @@ export default function Catalog() {
               
               {orderSuccess ? (
                 <div className="flex-1 flex flex-col items-center justify-center p-8 text-center space-y-4">
-                  <CheckCircle2 size={64} className="text-green-500" />
+                  <div className="w-20 h-20 bg-green-500/20 rounded-full flex items-center justify-center mb-2">
+                    <CheckCircle2 size={48} className="text-green-500" />
+                  </div>
                   <h3 className="text-2xl font-bold">Ваш заказ оформлен!</h3>
                   <p className="text-[var(--color-tg-hint)]">Наш менеджер свяжется с вами в Telegram в ближайшее время для уточнения деталей.</p>
                 </div>
               ) : (
                 <>
-                  <div className="flex-1 overflow-y-auto p-4 space-y-4">
+                  <div className="flex-1 overflow-y-auto p-4 space-y-3">
                     {cart.length === 0 ? (
-                      <div className="text-center text-[var(--color-tg-hint)] mt-10">
-                        Корзина пуста 😔
+                      <div className="text-center text-[var(--color-tg-hint)] mt-10 flex flex-col items-center">
+                        <Package size={48} className="mb-4 opacity-20" />
+                        Корзина пуста
                       </div>
                     ) : (
                       cart.map(item => (
-                        <div key={item.id + (item.selectedOption||'')} className="flex gap-3 items-center bg-[var(--color-tg-secondary-bg)] p-3 rounded-xl">
-                          <div className="w-16 h-16 bg-[var(--color-tg-bg)] rounded-lg flex items-center justify-center p-1">
+                        <div key={item.id + (item.selectedOption||'')} className="flex gap-3 items-center bg-[var(--color-tg-secondary-bg)] p-3 rounded-2xl">
+                          <div className="w-16 h-16 bg-[var(--color-tg-bg)] rounded-xl flex items-center justify-center p-1 overflow-hidden">
                             {item.image ? (
-                              <img src={item.image} alt={item.name} className="object-contain h-full w-full" />
+                              <img src={item.image} alt={item.name} className="object-cover h-full w-full rounded-lg" />
                             ) : (
                               <Package className="text-[var(--color-tg-hint)] opacity-50" />
                             )}
                           </div>
                           <div className="flex-1">
-                            <h4 className="font-medium text-sm line-clamp-1">{item.name}</h4>
+                            <h4 className="font-semibold text-sm line-clamp-1">{item.name}</h4>
                             {item.selectedOption && (
-                              <span className="text-xs bg-[var(--color-tg-primary)]/20 text-[var(--color-tg-primary)] px-2 py-0.5 rounded-full mt-1 inline-block">
+                              <span className="text-[10px] bg-[var(--color-tg-primary)]/20 text-[var(--color-tg-primary)] px-2 py-0.5 rounded-md mt-1 inline-block font-medium">
                                 {item.selectedOption}
                               </span>
                             )}
-                            <p className="text-[var(--color-tg-primary)] font-bold mt-1">{item.price} BYN</p>
+                            <p className="text-[var(--color-tg-primary)] font-bold mt-1 text-sm">{item.price} BYN</p>
                             
                             <div className="flex items-center gap-3 mt-2">
-                              <div className="flex items-center bg-[var(--color-tg-bg)] rounded-lg">
-                                <button onClick={() => updateQuantity(item.id, item.selectedOption, -1)} className="w-8 h-8 flex items-center justify-center text-lg">-</button>
-                                <span className="w-6 text-center font-medium">{item.quantity}</span>
-                                <button onClick={() => updateQuantity(item.id, item.selectedOption, 1)} className="w-8 h-8 flex items-center justify-center text-lg">+</button>
+                              <div className="flex items-center bg-[var(--color-tg-bg)] rounded-lg p-0.5">
+                                <button onClick={() => updateQuantity(item.id, item.selectedOption, -1)} className="w-7 h-7 flex items-center justify-center text-lg rounded-md bg-[var(--color-tg-secondary-bg)]">-</button>
+                                <span className="w-6 text-center font-bold text-sm">{item.quantity}</span>
+                                <button onClick={() => updateQuantity(item.id, item.selectedOption, 1)} className="w-7 h-7 flex items-center justify-center text-lg rounded-md bg-[var(--color-tg-secondary-bg)]">+</button>
                               </div>
-                              <button onClick={() => removeFromCart(item.id, item.selectedOption)} className="p-2 text-red-400 ml-auto">
-                                <Trash2 size={18} />
+                              <button onClick={() => removeFromCart(item.id, item.selectedOption)} className="p-2 text-red-400 ml-auto bg-red-500/10 rounded-lg">
+                                <Trash2 size={16} />
                               </button>
                             </div>
                           </div>
@@ -245,26 +282,26 @@ export default function Catalog() {
                   </div>
 
                   {cart.length > 0 && (
-                    <div className="p-4 border-t border-[var(--color-tg-secondary-bg)] bg-[var(--color-tg-bg)]">
+                    <div className="p-5 border-t border-[var(--color-tg-secondary-bg)] bg-[var(--color-tg-bg)] shadow-[0_-10px_20px_rgba(0,0,0,0.2)] pb-safe">
                       <div className="mb-4">
-                        <label className="text-xs text-[var(--color-tg-hint)] mb-1 block">Ваш Telegram юзернейм для связи (без @):</label>
+                        <label className="text-xs text-[var(--color-tg-hint)] mb-1.5 block font-medium">Ваш Telegram юзернейм для связи (без @):</label>
                         <input 
                           type="text" 
                           value={clientUsername}
                           onChange={e => setClientUsername(e.target.value)}
                           placeholder="ivan123"
-                          className="w-full bg-[var(--color-tg-secondary-bg)] p-3 rounded-xl outline-none border border-transparent focus:border-[var(--color-tg-primary)]"
+                          className="w-full bg-[var(--color-tg-secondary-bg)] p-3 rounded-xl outline-none border border-transparent focus:border-[var(--color-tg-primary)] text-sm transition-colors"
                         />
                       </div>
                       
                       <div className="flex justify-between items-center mb-4">
-                        <span className="text-[var(--color-tg-hint)]">Итого:</span>
-                        <span className="text-2xl font-bold">{cartTotal} BYN</span>
+                        <span className="text-[var(--color-tg-hint)] font-medium">Итого к оплате:</span>
+                        <span className="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-[#c084fc] to-[#7c3aed]">{cartTotal} BYN</span>
                       </div>
                       <button 
                         onClick={handleCheckout}
                         disabled={orderLoading || !clientUsername}
-                        className="w-full py-4 bg-[var(--color-tg-primary)] text-[var(--color-tg-primary-text)] rounded-xl font-bold text-lg active:scale-95 transition-transform disabled:opacity-50"
+                        className="w-full py-3.5 bg-gradient-to-r from-[#7c3aed] to-[#6d28d9] text-white rounded-xl font-bold text-lg active:scale-95 transition-all shadow-lg shadow-[#7c3aed]/30 disabled:opacity-50 disabled:grayscale"
                       >
                         {orderLoading ? 'Оформление...' : 'Оформить заказ'}
                       </button>
@@ -287,39 +324,46 @@ function ProductCard({ product, onAdd }: { product: Product, onAdd: (p: Product,
     <motion.div 
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      className="bg-[var(--color-tg-secondary-bg)] rounded-xl overflow-hidden flex flex-col"
+      className="bg-[var(--color-tg-secondary-bg)] rounded-2xl overflow-hidden flex flex-col border border-white/5 hover:border-[var(--color-tg-primary)]/50 transition-colors shadow-sm"
     >
-      <div className="h-32 bg-[var(--color-tg-bg)] flex items-center justify-center overflow-hidden p-2">
+      <div className="h-36 bg-[#130f1c] flex items-center justify-center overflow-hidden p-3 relative">
         {product.image ? (
-          <img src={product.image} alt={product.name} className="object-contain h-full w-full" />
+          <img src={product.image} alt={product.name} className="object-contain h-full w-full drop-shadow-lg" />
         ) : (
           <Package size={48} className="text-[var(--color-tg-hint)] opacity-20" />
         )}
+        <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-tg-secondary-bg)] to-transparent opacity-50" />
       </div>
-      <div className="p-3 flex flex-col flex-1 justify-between">
-        <div>
-          <h3 className="font-semibold text-sm leading-tight mb-1">{product.name}</h3>
-          
-          {product.options && product.options.length > 0 && (
+      <div className="p-3 flex flex-col flex-1">
+        {/* Fixed height for the title to ensure alignment across grid */}
+        <div className="h-10 mb-2">
+          <h3 className="font-bold text-sm leading-tight line-clamp-2">{product.name}</h3>
+        </div>
+        
+        <div className="flex-1 flex flex-col justify-end">
+          {product.options && product.options.length > 0 ? (
             <select 
               value={selectedOption}
               onChange={e => setSelectedOption(e.target.value)}
-              className="w-full text-xs p-1 mb-2 bg-[var(--color-tg-bg)] text-[var(--color-tg-text)] rounded outline-none border border-[var(--color-tg-secondary-bg)]"
+              className="w-full text-xs p-2 mb-3 bg-[#130f1c] text-[var(--color-tg-text)] rounded-lg outline-none border border-transparent focus:border-[var(--color-tg-primary)] transition-colors font-medium cursor-pointer"
             >
               {product.options.map(opt => (
                 <option key={opt} value={opt}>{opt}</option>
               ))}
             </select>
+          ) : (
+            <div className="h-[34px] mb-3"></div> /* Placeholder for alignment */
           )}
           
-          <p className="text-[var(--color-tg-primary)] font-bold mb-3">{product.price} BYN</p>
+          <p className="text-[var(--color-tg-primary)] font-black text-lg mb-3">{product.price} BYN</p>
+          
+          <button 
+            onClick={() => onAdd(product, product.options?.length ? selectedOption : undefined)}
+            className="w-full py-2.5 bg-white/5 hover:bg-[var(--color-tg-primary)] text-white rounded-xl text-sm font-bold active:scale-95 transition-all border border-white/10 hover:border-transparent hover:shadow-lg hover:shadow-[var(--color-tg-primary)]/30"
+          >
+            В корзину
+          </button>
         </div>
-        <button 
-          onClick={() => onAdd(product, product.options?.length ? selectedOption : undefined)}
-          className="w-full py-2 bg-[var(--color-tg-primary)] text-[var(--color-tg-primary-text)] rounded-lg text-sm font-medium active:scale-95 transition-transform"
-        >
-          В корзину
-        </button>
       </div>
     </motion.div>
   );
