@@ -8,11 +8,9 @@
     
     <!-- Global Error Catcher for Debugging -->
     <script>
-      window.onerror = function(message, source, lineno, colno, error) {
+      function showError(msg) {
         var errDiv = document.createElement('div');
-        errDiv.style.position = 'fixed';
-        errDiv.style.top = '0';
-        errDiv.style.left = '0';
+        errDiv.style.position = 'relative';
         errDiv.style.width = '100%';
         errDiv.style.padding = '20px';
         errDiv.style.backgroundColor = 'red';
@@ -21,27 +19,25 @@
         errDiv.style.fontSize = '14px';
         errDiv.style.fontFamily = 'monospace';
         errDiv.style.wordWrap = 'break-word';
-        errDiv.innerHTML = '<b>CRASH:</b> ' + message + '<br><br>Source: ' + source + '<br>Line: ' + lineno + '<br>Col: ' + colno + '<br>Error: ' + (error ? error.stack : '');
-        document.body.appendChild(errDiv);
+        errDiv.innerHTML = msg;
+        if(document.body) document.body.appendChild(errDiv);
+        else document.documentElement.appendChild(errDiv);
+      }
+
+      window.onerror = function(message, source, lineno, colno, error) {
+        showError('<b>JS CRASH:</b> ' + message + '<br>Line: ' + lineno + '<br>Source: ' + source);
         return false;
       };
       
       window.addEventListener("unhandledrejection", function(event) {
-        var errDiv = document.createElement('div');
-        errDiv.style.position = 'fixed';
-        errDiv.style.bottom = '0';
-        errDiv.style.left = '0';
-        errDiv.style.width = '100%';
-        errDiv.style.padding = '20px';
-        errDiv.style.backgroundColor = 'orange';
-        errDiv.style.color = 'white';
-        errDiv.style.zIndex = '999999';
-        errDiv.style.fontSize = '14px';
-        errDiv.style.fontFamily = 'monospace';
-        errDiv.style.wordWrap = 'break-word';
-        errDiv.innerHTML = '<b>PROMISE CRASH:</b> ' + event.reason;
-        document.body.appendChild(errDiv);
+        showError('<b>PROMISE CRASH:</b> ' + event.reason);
       });
+
+      window.addEventListener("error", function(e) {
+        if (e.target && (e.target.tagName === 'SCRIPT' || e.target.tagName === 'LINK')) {
+          showError('<b>NETWORK ERROR:</b> Failed to load ' + e.target.src + (e.target.href || ''));
+        }
+      }, true);
     </script>
     
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
