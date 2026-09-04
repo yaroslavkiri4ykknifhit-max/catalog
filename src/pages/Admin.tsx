@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import type { Product, Category, CatalogData } from '../types';
-import { Save, Plus, Trash2, Settings, Loader2 } from 'lucide-react';
+import { Save, Plus, Trash2, Settings, Loader2, ArrowLeft } from 'lucide-react';
 
 const ADMIN_ID = 2117489924;
 
@@ -41,6 +41,7 @@ export default function Admin() {
         <div className="text-center">
           <h1 className="text-2xl font-bold text-red-500 mb-2">Доступ запрещен</h1>
           <p className="text-[var(--color-tg-hint)]">Вы не являетесь администратором.</p>
+          <button onClick={() => window.location.hash = ''} className="mt-4 px-4 py-2 bg-[var(--color-tg-primary)] text-white rounded-lg">Вернуться в каталог</button>
         </div>
       </div>
     );
@@ -165,9 +166,14 @@ export default function Admin() {
 
   return (
     <div className="min-h-screen bg-[var(--color-tg-bg)] text-[var(--color-tg-text)] p-4 max-w-2xl mx-auto pb-24">
-      <h1 className="text-2xl font-bold mb-6 flex items-center gap-2">
-        <Settings /> Управление
-      </h1>
+      <div className="flex items-center gap-3 mb-6">
+        <button onClick={() => window.location.hash = ''} className="p-2 bg-[var(--color-tg-secondary-bg)] rounded-full">
+          <ArrowLeft size={20} />
+        </button>
+        <h1 className="text-2xl font-bold flex items-center gap-2">
+          <Settings /> Управление
+        </h1>
+      </div>
       
       <div className="bg-[var(--color-tg-secondary-bg)] p-4 rounded-xl mb-6 space-y-3">
         <h2 className="font-semibold text-lg border-b border-[var(--color-tg-bg)] pb-2 mb-2">Настройки GitHub</h2>

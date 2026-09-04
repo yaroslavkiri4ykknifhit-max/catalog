@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { ShoppingCart, Package, Trash2, CheckCircle2 } from 'lucide-react';
+import { ShoppingCart, Package, Trash2, CheckCircle2, Settings } from 'lucide-react';
 import type { Product, Category, CartItem } from '../types';
 
 export default function Catalog() {
@@ -15,6 +15,7 @@ export default function Catalog() {
   const [showSplash, setShowSplash] = useState(true);
   
   const [clientUsername, setClientUsername] = useState('');
+  const [tgUserId, setTgUserId] = useState<number | undefined>();
   const [orderSuccess, setOrderSuccess] = useState(false);
   const [orderLoading, setOrderLoading] = useState(false);
   
@@ -22,6 +23,9 @@ export default function Catalog() {
     const tgUser = window.Telegram?.WebApp?.initDataUnsafe?.user;
     if (tgUser?.username) {
       setClientUsername(tgUser.username);
+    }
+    if (tgUser?.id) {
+      setTgUserId(tgUser.id);
     }
   }, []);
 
@@ -119,6 +123,9 @@ export default function Catalog() {
   };
 
   const filteredProducts = products.filter(p => p.categoryId === activeCategory);
+  
+  // Show admin button if the current Telegram user ID matches the admin ID from settings
+  const isAdmin = tgUserId?.toString() === adminId?.toString();
 
   return (
     <div className="min-h-screen pb-24 relative bg-[var(--color-tg-bg)]">
@@ -283,6 +290,16 @@ export default function Catalog() {
           </div>
         </>
       )}
+
+      {/* Admin Button (Visible only to Admin) */}
+      {isAdmin && (
+        <button 
+          onClick={() => window.location.hash = 'admin'}
+          className="fixed bottom-6 right-6 w-14 h-14 bg-gradient-to-r from-[#d4af37] to-[#b8860b] text-white rounded-full flex items-center justify-center shadow-[0_4px_20px_rgba(212,175,55,0.4)] z-30 active:scale-95 transition-transform"
+        >
+          <Settings size={28} />
+        </button>
+      )}
     </div>
   );
 }
@@ -301,7 +318,6 @@ function ProductCard({ product, onAdd }: { product: Product, onAdd: (p: Product,
         <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-tg-secondary-bg)] to-transparent opacity-50" />
       </div>
       <div className="p-3 flex flex-col flex-1">
-        {/* Fixed height for the title to ensure alignment across grid */}
         <div className="h-10 mb-2">
           <h3 className="font-bold text-sm leading-tight line-clamp-2">{product.name}</h3>
         </div>
@@ -318,7 +334,7 @@ function ProductCard({ product, onAdd }: { product: Product, onAdd: (p: Product,
               ))}
             </select>
           ) : (
-            <div className="h-[34px] mb-3"></div> /* Placeholder for alignment */
+            <div className="h-[34px] mb-3"></div>
           )}
           
           <p className="text-[var(--color-tg-primary)] font-black text-lg mb-3">{product.price} BYN</p>
