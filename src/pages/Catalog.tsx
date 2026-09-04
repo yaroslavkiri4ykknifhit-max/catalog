@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { ShoppingCart, Package, Trash2, CheckCircle2 } from 'lucide-react';
 import type { Product, Category, CartItem } from '../types';
-import { motion, AnimatePresence } from 'framer-motion';
 
 export default function Catalog() {
   const [categories, setCategories] = useState<Category[]>([]);
@@ -12,7 +11,6 @@ export default function Catalog() {
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
   const [cart, setCart] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
-  
   
   const [showSplash, setShowSplash] = useState(true);
   
@@ -42,12 +40,10 @@ export default function Catalog() {
         if (data.categories?.length > 0) {
           setActiveCategory(data.categories[0].id);
         }
-        
-        setTimeout(() => setShowSplash(false), 400); // fade out time
+        setShowSplash(false);
       })
       .catch(err => {
         console.error(err);
-        
         setShowSplash(false);
       });
   }, []);
@@ -127,33 +123,16 @@ export default function Catalog() {
   return (
     <div className="min-h-screen pb-24 relative bg-[var(--color-tg-bg)]">
       {/* Splash Screen */}
-      <AnimatePresence>
-        {showSplash && (
-          <motion.div 
-            initial={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.4 }}
-            className="fixed inset-0 z-50 bg-[#130f1c] flex flex-col items-center justify-center"
-          >
-            <motion.div
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 0.5, ease: "easeOut" }}
-              className="w-48 h-48 rounded-full overflow-hidden shadow-[0_0_40px_rgba(124,58,237,0.4)] mb-8 border-2 border-[#7c3aed]"
-            >
-              <img src={`${import.meta.env.BASE_URL}logo.jpg`} alt="Vape Empire" className="w-full h-full object-cover" />
-            </motion.div>
-            <div className="w-32 h-1 bg-[#1e1b2e] rounded-full overflow-hidden">
-              <motion.div 
-                className="h-full bg-gradient-to-r from-[#7c3aed] to-[#c084fc]"
-                initial={{ width: "0%" }}
-                animate={{ width: "100%" }}
-                transition={{ duration: 1.5, ease: "easeInOut" }}
-              />
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {showSplash && (
+        <div className="fixed inset-0 z-50 bg-[#130f1c] flex flex-col items-center justify-center">
+          <div className="w-48 h-48 rounded-full overflow-hidden shadow-[0_0_40px_rgba(124,58,237,0.4)] mb-8 border-2 border-[#7c3aed]">
+            <img src={`${import.meta.env.BASE_URL}logo.jpg`} alt="Vape Empire" className="w-full h-full object-cover" />
+          </div>
+          <div className="w-32 h-1 bg-[#1e1b2e] rounded-full overflow-hidden">
+            <div className="h-full bg-gradient-to-r from-[#7c3aed] to-[#c084fc] w-full animate-pulse" />
+          </div>
+        </div>
+      )}
 
       <div className="sticky top-0 z-10 bg-[#130f1c]/90 backdrop-blur-md border-b border-[var(--color-tg-secondary-bg)] p-4 flex justify-between items-center">
         <h1 className="text-xl font-bold flex items-center gap-3">
@@ -197,122 +176,113 @@ export default function Catalog() {
         ))}
       </div>
 
-      <AnimatePresence>
-        {isCartOpen && (
-          <>
-            <motion.div 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setIsCartOpen(false)}
-              className="fixed inset-0 bg-black/70 z-40 backdrop-blur-sm"
-            />
-            <motion.div 
-              initial={{ y: '100%' }}
-              animate={{ y: 0 }}
-              exit={{ y: '100%' }}
-              transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className="fixed bottom-0 left-0 right-0 h-[85vh] bg-[var(--color-tg-bg)] rounded-t-3xl z-50 flex flex-col shadow-[0_-10px_40px_rgba(0,0,0,0.5)] border-t border-[var(--color-tg-secondary-bg)]"
-            >
-              <div className="p-4 border-b border-[var(--color-tg-secondary-bg)] flex items-center justify-between">
-                <h2 className="text-xl font-bold flex items-center gap-2">
-                  <ShoppingCart className="text-[var(--color-tg-primary)]" /> 
-                  Корзина
-                </h2>
-                <button 
-                  onClick={() => {
-                    setIsCartOpen(false);
-                    if (orderSuccess) setOrderSuccess(false);
-                  }}
-                  className="p-2 bg-[var(--color-tg-secondary-bg)] rounded-full text-[var(--color-tg-hint)] hover:text-white transition-colors"
-                >
-                  Закрыть
-                </button>
-              </div>
-              
-              {orderSuccess ? (
-                <div className="flex-1 flex flex-col items-center justify-center p-8 text-center space-y-4">
-                  <div className="w-20 h-20 bg-green-500/20 rounded-full flex items-center justify-center mb-2">
-                    <CheckCircle2 size={48} className="text-green-500" />
-                  </div>
-                  <h3 className="text-2xl font-bold">Ваш заказ оформлен!</h3>
-                  <p className="text-[var(--color-tg-hint)]">Наш менеджер свяжется с вами в Telegram в ближайшее время для уточнения деталей.</p>
+      {isCartOpen && (
+        <>
+          <div 
+            onClick={() => setIsCartOpen(false)}
+            className="fixed inset-0 bg-black/70 z-40 backdrop-blur-sm transition-opacity"
+          />
+          <div 
+            className="fixed bottom-0 left-0 right-0 h-[85vh] bg-[var(--color-tg-bg)] rounded-t-3xl z-50 flex flex-col shadow-[0_-10px_40px_rgba(0,0,0,0.5)] border-t border-[var(--color-tg-secondary-bg)] transition-transform translate-y-0"
+          >
+            <div className="p-4 border-b border-[var(--color-tg-secondary-bg)] flex items-center justify-between">
+              <h2 className="text-xl font-bold flex items-center gap-2">
+                <ShoppingCart className="text-[var(--color-tg-primary)]" /> 
+                Корзина
+              </h2>
+              <button 
+                onClick={() => {
+                  setIsCartOpen(false);
+                  if (orderSuccess) setOrderSuccess(false);
+                }}
+                className="p-2 bg-[var(--color-tg-secondary-bg)] rounded-full text-[var(--color-tg-hint)] hover:text-white transition-colors"
+              >
+                Закрыть
+              </button>
+            </div>
+            
+            {orderSuccess ? (
+              <div className="flex-1 flex flex-col items-center justify-center p-8 text-center space-y-4">
+                <div className="w-20 h-20 bg-green-500/20 rounded-full flex items-center justify-center mb-2">
+                  <CheckCircle2 size={48} className="text-green-500" />
                 </div>
-              ) : (
-                <>
-                  <div className="flex-1 overflow-y-auto p-4 space-y-3">
-                    {cart.length === 0 ? (
-                      <div className="text-center text-[var(--color-tg-hint)] mt-10 flex flex-col items-center">
-                        <Package size={48} className="mb-4 opacity-20" />
-                        Корзина пуста
-                      </div>
-                    ) : (
-                      cart.map(item => (
-                        <div key={item.id + (item.selectedOption||'')} className="flex gap-3 items-center bg-[var(--color-tg-secondary-bg)] p-3 rounded-2xl">
-                          <div className="w-16 h-16 bg-[var(--color-tg-bg)] rounded-xl flex items-center justify-center p-1 overflow-hidden">
-                            {item.image ? (
-                              <img src={item.image} alt={item.name} className="object-cover h-full w-full rounded-lg" />
-                            ) : (
-                              <Package className="text-[var(--color-tg-hint)] opacity-50" />
-                            )}
-                          </div>
-                          <div className="flex-1">
-                            <h4 className="font-semibold text-sm line-clamp-1">{item.name}</h4>
-                            {item.selectedOption && (
-                              <span className="text-[10px] bg-[var(--color-tg-primary)]/20 text-[var(--color-tg-primary)] px-2 py-0.5 rounded-md mt-1 inline-block font-medium">
-                                {item.selectedOption}
-                              </span>
-                            )}
-                            <p className="text-[var(--color-tg-primary)] font-bold mt-1 text-sm">{item.price} BYN</p>
-                            
-                            <div className="flex items-center gap-3 mt-2">
-                              <div className="flex items-center bg-[var(--color-tg-bg)] rounded-lg p-0.5">
-                                <button onClick={() => updateQuantity(item.id, item.selectedOption, -1)} className="w-7 h-7 flex items-center justify-center text-lg rounded-md bg-[var(--color-tg-secondary-bg)]">-</button>
-                                <span className="w-6 text-center font-bold text-sm">{item.quantity}</span>
-                                <button onClick={() => updateQuantity(item.id, item.selectedOption, 1)} className="w-7 h-7 flex items-center justify-center text-lg rounded-md bg-[var(--color-tg-secondary-bg)]">+</button>
-                              </div>
-                              <button onClick={() => removeFromCart(item.id, item.selectedOption)} className="p-2 text-red-400 ml-auto bg-red-500/10 rounded-lg">
-                                <Trash2 size={16} />
-                              </button>
+                <h3 className="text-2xl font-bold">Ваш заказ оформлен!</h3>
+                <p className="text-[var(--color-tg-hint)]">Наш менеджер свяжется с вами в Telegram в ближайшее время для уточнения деталей.</p>
+              </div>
+            ) : (
+              <>
+                <div className="flex-1 overflow-y-auto p-4 space-y-3">
+                  {cart.length === 0 ? (
+                    <div className="text-center text-[var(--color-tg-hint)] mt-10 flex flex-col items-center">
+                      <Package size={48} className="mb-4 opacity-20" />
+                      Корзина пуста
+                    </div>
+                  ) : (
+                    cart.map(item => (
+                      <div key={item.id + (item.selectedOption||'')} className="flex gap-3 items-center bg-[var(--color-tg-secondary-bg)] p-3 rounded-2xl">
+                        <div className="w-16 h-16 bg-[var(--color-tg-bg)] rounded-xl flex items-center justify-center p-1 overflow-hidden">
+                          {item.image ? (
+                            <img src={item.image} alt={item.name} className="object-cover h-full w-full rounded-lg" />
+                          ) : (
+                            <Package className="text-[var(--color-tg-hint)] opacity-50" />
+                          )}
+                        </div>
+                        <div className="flex-1">
+                          <h4 className="font-semibold text-sm line-clamp-1">{item.name}</h4>
+                          {item.selectedOption && (
+                            <span className="text-[10px] bg-[var(--color-tg-primary)]/20 text-[var(--color-tg-primary)] px-2 py-0.5 rounded-md mt-1 inline-block font-medium">
+                              {item.selectedOption}
+                            </span>
+                          )}
+                          <p className="text-[var(--color-tg-primary)] font-bold mt-1 text-sm">{item.price} BYN</p>
+                          
+                          <div className="flex items-center gap-3 mt-2">
+                            <div className="flex items-center bg-[var(--color-tg-bg)] rounded-lg p-0.5">
+                              <button onClick={() => updateQuantity(item.id, item.selectedOption, -1)} className="w-7 h-7 flex items-center justify-center text-lg rounded-md bg-[var(--color-tg-secondary-bg)]">-</button>
+                              <span className="w-6 text-center font-bold text-sm">{item.quantity}</span>
+                              <button onClick={() => updateQuantity(item.id, item.selectedOption, 1)} className="w-7 h-7 flex items-center justify-center text-lg rounded-md bg-[var(--color-tg-secondary-bg)]">+</button>
                             </div>
+                            <button onClick={() => removeFromCart(item.id, item.selectedOption)} className="p-2 text-red-400 ml-auto bg-red-500/10 rounded-lg">
+                              <Trash2 size={16} />
+                            </button>
                           </div>
                         </div>
-                      ))
-                    )}
-                  </div>
-
-                  {cart.length > 0 && (
-                    <div className="p-5 border-t border-[var(--color-tg-secondary-bg)] bg-[var(--color-tg-bg)] shadow-[0_-10px_20px_rgba(0,0,0,0.2)] pb-safe">
-                      <div className="mb-4">
-                        <label className="text-xs text-[var(--color-tg-hint)] mb-1.5 block font-medium">Ваш Telegram юзернейм для связи (без @):</label>
-                        <input 
-                          type="text" 
-                          value={clientUsername}
-                          onChange={e => setClientUsername(e.target.value)}
-                          placeholder="ivan123"
-                          className="w-full bg-[var(--color-tg-secondary-bg)] p-3 rounded-xl outline-none border border-transparent focus:border-[var(--color-tg-primary)] text-sm transition-colors"
-                        />
                       </div>
-                      
-                      <div className="flex justify-between items-center mb-4">
-                        <span className="text-[var(--color-tg-hint)] font-medium">Итого к оплате:</span>
-                        <span className="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-[#c084fc] to-[#7c3aed]">{cartTotal} BYN</span>
-                      </div>
-                      <button 
-                        onClick={handleCheckout}
-                        disabled={orderLoading || !clientUsername}
-                        className="w-full py-3.5 bg-gradient-to-r from-[#7c3aed] to-[#6d28d9] text-white rounded-xl font-bold text-lg active:scale-95 transition-all shadow-lg shadow-[#7c3aed]/30 disabled:opacity-50 disabled:grayscale"
-                      >
-                        {orderLoading ? 'Оформление...' : 'Оформить заказ'}
-                      </button>
-                    </div>
+                    ))
                   )}
-                </>
-              )}
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
+                </div>
+
+                {cart.length > 0 && (
+                  <div className="p-5 border-t border-[var(--color-tg-secondary-bg)] bg-[var(--color-tg-bg)] shadow-[0_-10px_20px_rgba(0,0,0,0.2)] pb-safe">
+                    <div className="mb-4">
+                      <label className="text-xs text-[var(--color-tg-hint)] mb-1.5 block font-medium">Ваш Telegram юзернейм для связи (без @):</label>
+                      <input 
+                        type="text" 
+                        value={clientUsername}
+                        onChange={e => setClientUsername(e.target.value)}
+                        placeholder="ivan123"
+                        className="w-full bg-[var(--color-tg-secondary-bg)] p-3 rounded-xl outline-none border border-transparent focus:border-[var(--color-tg-primary)] text-sm transition-colors"
+                      />
+                    </div>
+                    
+                    <div className="flex justify-between items-center mb-4">
+                      <span className="text-[var(--color-tg-hint)] font-medium">Итого к оплате:</span>
+                      <span className="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-[#c084fc] to-[#7c3aed]">{cartTotal} BYN</span>
+                    </div>
+                    <button 
+                      onClick={handleCheckout}
+                      disabled={orderLoading || !clientUsername}
+                      className="w-full py-3.5 bg-gradient-to-r from-[#7c3aed] to-[#6d28d9] text-white rounded-xl font-bold text-lg active:scale-95 transition-all shadow-lg shadow-[#7c3aed]/30 disabled:opacity-50 disabled:grayscale"
+                    >
+                      {orderLoading ? 'Оформление...' : 'Оформить заказ'}
+                    </button>
+                  </div>
+                )}
+              </>
+            )}
+          </div>
+        </>
+      )}
     </div>
   );
 }
@@ -321,11 +291,7 @@ function ProductCard({ product, onAdd }: { product: Product, onAdd: (p: Product,
   const [selectedOption, setSelectedOption] = useState(product.options?.[0] || '');
   
   return (
-    <motion.div 
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      className="bg-[var(--color-tg-secondary-bg)] rounded-2xl overflow-hidden flex flex-col border border-white/5 hover:border-[var(--color-tg-primary)]/50 transition-colors shadow-sm"
-    >
+    <div className="bg-[var(--color-tg-secondary-bg)] rounded-2xl overflow-hidden flex flex-col border border-white/5 hover:border-[var(--color-tg-primary)]/50 transition-colors shadow-sm">
       <div className="h-36 bg-[#130f1c] flex items-center justify-center overflow-hidden p-3 relative">
         {product.image ? (
           <img src={product.image} alt={product.name} className="object-contain h-full w-full drop-shadow-lg" />
@@ -365,6 +331,6 @@ function ProductCard({ product, onAdd }: { product: Product, onAdd: (p: Product,
           </button>
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 }

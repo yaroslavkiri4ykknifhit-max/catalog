@@ -5,11 +5,52 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>vape-catalog</title>
+    
+    <!-- Global Error Catcher for Debugging -->
+    <script>
+      window.onerror = function(message, source, lineno, colno, error) {
+        var errDiv = document.createElement('div');
+        errDiv.style.position = 'fixed';
+        errDiv.style.top = '0';
+        errDiv.style.left = '0';
+        errDiv.style.width = '100%';
+        errDiv.style.padding = '20px';
+        errDiv.style.backgroundColor = 'red';
+        errDiv.style.color = 'white';
+        errDiv.style.zIndex = '999999';
+        errDiv.style.fontSize = '14px';
+        errDiv.style.fontFamily = 'monospace';
+        errDiv.style.wordWrap = 'break-word';
+        errDiv.innerHTML = '<b>CRASH:</b> ' + message + '<br><br>Source: ' + source + '<br>Line: ' + lineno + '<br>Col: ' + colno + '<br>Error: ' + (error ? error.stack : '');
+        document.body.appendChild(errDiv);
+        return false;
+      };
+      
+      window.addEventListener("unhandledrejection", function(event) {
+        var errDiv = document.createElement('div');
+        errDiv.style.position = 'fixed';
+        errDiv.style.bottom = '0';
+        errDiv.style.left = '0';
+        errDiv.style.width = '100%';
+        errDiv.style.padding = '20px';
+        errDiv.style.backgroundColor = 'orange';
+        errDiv.style.color = 'white';
+        errDiv.style.zIndex = '999999';
+        errDiv.style.fontSize = '14px';
+        errDiv.style.fontFamily = 'monospace';
+        errDiv.style.wordWrap = 'break-word';
+        errDiv.innerHTML = '<b>PROMISE CRASH:</b> ' + event.reason;
+        document.body.appendChild(errDiv);
+      });
+    </script>
+    
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script>
       try {
-        window.Telegram.WebApp.ready();
-        window.Telegram.WebApp.expand();
+        if (window.Telegram && window.Telegram.WebApp) {
+          window.Telegram.WebApp.ready();
+          window.Telegram.WebApp.expand();
+        }
       } catch (e) {}
     </script>
   </head>
