@@ -66,7 +66,7 @@ export default function Admin() {
     const file = e.target.files[0];
     const b64 = await toBase64(file);
     setProducts(prev => prev.map(p => 
-      p.id === productId ? { ...p, image: b64, _file: file } : p
+      p.id === productId ? { ...p, image: b64, _file: file } as Product & { _file: File } : p
     ));
   };
 
@@ -107,7 +107,7 @@ export default function Admin() {
           if (!res.ok) throw new Error('Ошибка загрузки картинки. Проверьте токен.');
           
           newProducts[i].image = `images/${filename}`;
-          delete newProducts[i]._file;
+          delete (newProducts[i] as any)._file;
         }
       }
       
@@ -265,16 +265,6 @@ export default function Admin() {
               <button onClick={() => setProducts(products.filter(x => x.id !== p.id))} className="p-2 h-fit text-red-400 bg-red-400/10 rounded-lg">
                 <Trash2 size={18} />
               </button>
-            </div>
-            
-            <div className="mt-2 pt-2 border-t border-[var(--color-tg-bg)]">
-              <input 
-                type="text" 
-                value={(p.options || []).join(', ')} 
-                onChange={e => updateProduct(p.id, 'options', e.target.value.split(',').map(s => s.trim()).filter(s => s))}
-                className="w-full bg-[var(--color-tg-bg)] p-2 rounded-lg text-sm outline-none"
-                placeholder="Варианты (вкусы) через запятую: Яблоко, Манго, Вишня"
-              />
             </div>
           </div>
         ))}

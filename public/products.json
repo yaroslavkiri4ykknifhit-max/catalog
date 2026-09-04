@@ -21,36 +21,33 @@
       "categoryId": "cartridges",
       "name": "Картридж Vaporesso XROS",
       "price": 15,
-      "image": "images/img_1788535924210_3yjifd0.gif",
-      "options": [
-        "0.6 Ом",
-        "0.8 Ом",
-        "1.0 Ом",
-        "1.2 Ом"
-      ]
+      "image": "images/img_1788535924210_3yjifd0.gif"
     },
     {
       "id": "2",
       "categoryId": "cartridges",
       "name": "Картридж Vmate",
       "price": 15,
-      "image": "https://placehold.co/400x400/232e3c/ffffff?text=Vmate",
-      "options": [
-        "0.7 Ом",
-        "1.2 Ом"
-      ]
+      "image": "https://placehold.co/400x400/232e3c/ffffff?text=Vmate"
     },
     {
       "id": "3",
       "categoryId": "liquids",
       "name": "Жидкость Husky 30ml",
       "price": 25,
-      "image": "https://placehold.co/400x400/232e3c/ffffff?text=Husky",
-      "options": [
-        "Манго-Лед",
-        "Клубника-Мята",
-        "Арбузный Бабл-Гам"
-      ]
-    }
+      "image": "https://placehold.co/400x400/232e3c/ffffff?text=Husky"
+    },
+    { "id": "l1", "categoryId": "liquids", "name": "Жидкость Catswill", "price": 0 },
+    { "id": "l2", "categoryId": "liquids", "name": "Жидкость Podonki", "price": 0 },
+    { "id": "l3", "categoryId": "liquids", "name": "Жидкость Самоубийца", "price": 0 },
+    { "id": "l4", "categoryId": "liquids", "name": "Жидкость Монашка", "price": 0 },
+    { "id": "l5", "categoryId": "liquids", "name": "Жидкость Анархия", "price": 0 },
+    { "id": "l6", "categoryId": "liquids", "name": "Жидкость Elifq", "price": 0 },
+    { "id": "l7", "categoryId": "liquids", "name": "Жидкость OGGO", "price": 0 },
+    { "id": "l8", "categoryId": "liquids", "name": "Жидкость Рик и Морти", "price": 0 },
+    { "id": "c1", "categoryId": "cartridges", "name": "Картридж Vaparesso XROS 0,4 Ом 3 мл", "price": 0 },
+    { "id": "c2", "categoryId": "cartridges", "name": "Картридж Vaparesso XROS 0,6 Ом 3 мл", "price": 0 },
+    { "id": "v1", "categoryId": "vaporizers", "name": "Испаритель Geekvape Aegis Boost", "price": 0 },
+    { "id": "v2", "categoryId": "vaporizers", "name": "Испаритель Smoant Pasito", "price": 0 }
   ]
 }
