@@ -1,17 +1,33 @@
 {
   "categories": [
-    {"id": "cartridges", "name": "Картриджи"},
-    {"id": "vaporizers", "name": "Испарители"},
-    {"id": "liquids", "name": "Жидкости"}
+    {
+      "id": "cartridges",
+      "name": "Картриджи"
+    },
+    {
+      "id": "vaporizers",
+      "name": "Испарители"
+    },
+    {
+      "id": "liquids",
+      "name": "Жидкости"
+    }
   ],
+  "botToken": "8746082667:AAEtC_uVj9dddA_4VL0lHBodZDwXzSRLRQM",
+  "adminId": "2117489924",
   "products": [
     {
       "id": "1",
       "categoryId": "cartridges",
       "name": "Картридж Vaporesso XROS",
       "price": 15,
-      "image": "https://placehold.co/400x400/232e3c/ffffff?text=Vaporesso",
-      "options": ["0.6 Ом", "0.8 Ом", "1.0 Ом", "1.2 Ом"]
+      "image": "images/img_1788535924210_3yjifd0.gif",
+      "options": [
+        "0.6 Ом",
+        "0.8 Ом",
+        "1.0 Ом",
+        "1.2 Ом"
+      ]
     },
     {
       "id": "2",
@@ -19,7 +35,10 @@
       "name": "Картридж Vmate",
       "price": 15,
       "image": "https://placehold.co/400x400/232e3c/ffffff?text=Vmate",
-      "options": ["0.7 Ом", "1.2 Ом"]
+      "options": [
+        "0.7 Ом",
+        "1.2 Ом"
+      ]
     },
     {
       "id": "3",
@@ -27,8 +46,11 @@
       "name": "Жидкость Husky 30ml",
       "price": 25,
       "image": "https://placehold.co/400x400/232e3c/ffffff?text=Husky",
-      "options": ["Манго-Лед", "Клубника-Мята", "Арбузный Бабл-Гам"]
+      "options": [
+        "Манго-Лед",
+        "Клубника-Мята",
+        "Арбузный Бабл-Гам"
+      ]
     }
-  ],
-  "adminId": "2117489924"
+  ]
 }
