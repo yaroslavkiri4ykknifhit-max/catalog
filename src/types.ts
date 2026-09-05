@@ -9,10 +9,12 @@ export interface Product {
   name: string;
   price: number;
   image?: string;
+  options?: string[];
 }
 
 export interface CartItem extends Product {
   quantity: number;
+  selectedOption?: string;
 }
 
 export interface CatalogData {

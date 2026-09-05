@@ -51,23 +51,24 @@ export default function Catalog() {
       });
   }, []);
 
-  const addToCart = (product: Product) => {
+  const addToCart = (product: Product, selectedOption?: string) => {
     setCart(prev => {
-      const existing = prev.find(item => item.id === product.id);
+      const existing = prev.find(item => item.id === product.id && item.selectedOption === selectedOption);
       if (existing) {
-        return prev.map(item => item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item);
+        return prev.map(item => (item.id === product.id && item.selectedOption === selectedOption) 
+          ? { ...item, quantity: item.quantity + 1 } : item);
       }
-      return [...prev, { ...product, quantity: 1 }];
+      return [...prev, { ...product, quantity: 1, selectedOption }];
     });
   };
 
-  const removeFromCart = (productId: string) => {
-    setCart(prev => prev.filter(item => item.id !== productId));
+  const removeFromCart = (productId: string, selectedOption?: string) => {
+    setCart(prev => prev.filter(item => !(item.id === productId && item.selectedOption === selectedOption)));
   };
 
-  const updateQuantity = (productId: string, delta: number) => {
+  const updateQuantity = (productId: string, selectedOption: string | undefined, delta: number) => {
     setCart(prev => prev.map(item => {
-      if (item.id === productId) {
+      if (item.id === productId && item.selectedOption === selectedOption) {
         const newQ = item.quantity + delta;
         return newQ > 0 ? { ...item, quantity: newQ } : item;
       }
@@ -87,7 +88,7 @@ export default function Catalog() {
     setOrderLoading(true);
     
     const text = cart.map(item => 
-      `${item.name} x${item.quantity} - ${item.price * item.quantity} BYN`
+      `${item.name}${item.selectedOption ? ` (${item.selectedOption})` : ''} x${item.quantity} - ${item.price * item.quantity} BYN`
     ).join('\n');
     const totalText = `\n\nИтого: ${cartTotal} BYN`;
     
@@ -221,7 +222,7 @@ export default function Catalog() {
                     </div>
                   ) : (
                     cart.map(item => (
-                      <div key={item.id} className="flex gap-3 items-center bg-[var(--color-tg-secondary-bg)] p-3 rounded-2xl">
+                      <div key={item.id + (item.selectedOption||'')} className="flex gap-3 items-center bg-[var(--color-tg-secondary-bg)] p-3 rounded-2xl">
                         <div className="w-16 h-16 bg-[var(--color-tg-bg)] rounded-xl flex items-center justify-center overflow-hidden">
                           {item.image ? (
                             <img src={item.image} alt={item.name} className="object-cover h-full w-full" />
@@ -230,16 +231,21 @@ export default function Catalog() {
                           )}
                         </div>
                         <div className="flex-1">
-                          <h4 className="font-semibold text-sm line-clamp-2">{item.name}</h4>
+                          <h4 className="font-semibold text-sm line-clamp-1">{item.name}</h4>
+                          {item.selectedOption && (
+                            <span className="text-[10px] bg-[var(--color-tg-primary)]/20 text-[var(--color-tg-primary)] px-2 py-0.5 rounded-md mt-1 inline-block font-medium">
+                              {item.selectedOption}
+                            </span>
+                          )}
                           <p className="text-[var(--color-tg-primary)] font-bold mt-1 text-sm">{item.price} BYN</p>
                           
                           <div className="flex items-center gap-3 mt-2">
                             <div className="flex items-center bg-[var(--color-tg-bg)] rounded-lg p-0.5">
-                              <button onClick={() => updateQuantity(item.id, -1)} className="w-7 h-7 flex items-center justify-center text-lg rounded-md bg-[var(--color-tg-secondary-bg)]">-</button>
+                              <button onClick={() => updateQuantity(item.id, item.selectedOption, -1)} className="w-7 h-7 flex items-center justify-center text-lg rounded-md bg-[var(--color-tg-secondary-bg)]">-</button>
                               <span className="w-6 text-center font-bold text-sm">{item.quantity}</span>
-                              <button onClick={() => updateQuantity(item.id, 1)} className="w-7 h-7 flex items-center justify-center text-lg rounded-md bg-[var(--color-tg-secondary-bg)]">+</button>
+                              <button onClick={() => updateQuantity(item.id, item.selectedOption, 1)} className="w-7 h-7 flex items-center justify-center text-lg rounded-md bg-[var(--color-tg-secondary-bg)]">+</button>
                             </div>
-                            <button onClick={() => removeFromCart(item.id)} className="p-2 text-red-400 ml-auto bg-red-500/10 rounded-lg">
+                            <button onClick={() => removeFromCart(item.id, item.selectedOption)} className="p-2 text-red-400 ml-auto bg-red-500/10 rounded-lg">
                               <Trash2 size={16} />
                             </button>
                           </div>
@@ -251,10 +257,6 @@ export default function Catalog() {
 
                 {cart.length > 0 && (
                   <div className="p-5 border-t border-[var(--color-tg-secondary-bg)] bg-[var(--color-tg-bg)] shadow-[0_-10px_20px_rgba(0,0,0,0.2)] pb-safe">
-                    <div className="mb-4 text-center">
-                      <span className="text-xs text-[var(--color-tg-hint)]">Менеджер уточнит нужный вкус и детали при подтверждении заказа</span>
-                    </div>
-                    
                     <div className="mb-4">
                       <label className="text-xs text-[var(--color-tg-hint)] mb-1.5 block font-medium">Ваш Telegram юзернейм для связи (без @):</label>
                       <input 
@@ -297,7 +299,9 @@ export default function Catalog() {
   );
 }
 
-function ProductCard({ product, onAdd }: { product: Product, onAdd: (p: Product) => void }) {
+function ProductCard({ product, onAdd }: { product: Product, onAdd: (p: Product, opt?: string) => void }) {
+  const [selectedOption, setSelectedOption] = useState(product.options?.[0] || '');
+  
   return (
     <div className="bg-[var(--color-tg-secondary-bg)] rounded-2xl overflow-hidden flex flex-col border border-white/5 hover:border-[var(--color-tg-primary)]/50 transition-colors shadow-sm">
       <div className="h-36 bg-[#130f1c] flex items-center justify-center overflow-hidden relative">
@@ -314,11 +318,24 @@ function ProductCard({ product, onAdd }: { product: Product, onAdd: (p: Product)
         </div>
         
         <div className="flex-1 flex flex-col justify-end text-center mt-1">
-          <span className="text-[10px] text-[var(--color-tg-hint)] mb-2 block leading-tight">Менеджер уточнит вкус<br/>при заказе</span>
+          {product.options && product.options.length > 0 ? (
+            <select 
+              value={selectedOption}
+              onChange={e => setSelectedOption(e.target.value)}
+              className="w-full text-xs p-2 mb-3 bg-[#130f1c] text-[var(--color-tg-text)] rounded-lg outline-none border border-transparent focus:border-[var(--color-tg-primary)] transition-colors font-medium cursor-pointer"
+            >
+              {product.options.map(opt => (
+                <option key={opt} value={opt}>{opt}</option>
+              ))}
+            </select>
+          ) : (
+            <div className="h-[34px] mb-3"></div>
+          )}
+          
           <p className="text-[var(--color-tg-primary)] font-black text-lg mb-3">{product.price} BYN</p>
           
           <button 
-            onClick={() => onAdd(product)}
+            onClick={() => onAdd(product, product.options?.length ? selectedOption : undefined)}
             className="w-full py-2.5 bg-white/5 hover:bg-[var(--color-tg-primary)] text-white rounded-xl text-sm font-bold active:scale-95 transition-all border border-white/10 hover:border-transparent hover:shadow-lg hover:shadow-[var(--color-tg-primary)]/30"
           >
             В корзину
