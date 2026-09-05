@@ -19,7 +19,11 @@
       "categoryId": "cartridges",
       "name": "Картридж Vaporesso XROS",
       "price": 15,
-      "image": "images/img_1788615073082_zi6ss23.jpg"
+      "image": "images/img_1788615073082_zi6ss23.jpg",
+      "options": [
+        "at",
+        "ta"
+      ]
     },
     {
       "id": "2",
