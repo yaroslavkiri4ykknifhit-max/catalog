@@ -266,6 +266,16 @@ export default function Admin() {
                 <Trash2 size={18} />
               </button>
             </div>
+            
+            <div className="mt-2 pt-2 border-t border-[var(--color-tg-bg)]">
+              <input 
+                type="text" 
+                value={(p.options || []).join(', ')} 
+                onChange={e => updateProduct(p.id, 'options', e.target.value.split(',').map(s => s.trim()).filter(s => s))}
+                className="w-full bg-[var(--color-tg-bg)] p-2 rounded-lg text-sm outline-none"
+                placeholder="Варианты (вкусы) через запятую: Яблоко, Манго, Вишня"
+              />
+            </div>
           </div>
         ))}
       </div>
