@@ -222,9 +222,9 @@ export default function Catalog() {
                   ) : (
                     cart.map(item => (
                       <div key={item.id} className="flex gap-3 items-center bg-[var(--color-tg-secondary-bg)] p-3 rounded-2xl">
-                        <div className="w-16 h-16 bg-[var(--color-tg-bg)] rounded-xl flex items-center justify-center p-1 overflow-hidden">
+                        <div className="w-16 h-16 bg-[var(--color-tg-bg)] rounded-xl flex items-center justify-center overflow-hidden">
                           {item.image ? (
-                            <img src={item.image} alt={item.name} className="object-cover h-full w-full rounded-lg" />
+                            <img src={item.image} alt={item.name} className="object-cover h-full w-full" />
                           ) : (
                             <Package className="text-[var(--color-tg-hint)] opacity-50" />
                           )}
@@ -300,9 +300,9 @@ export default function Catalog() {
 function ProductCard({ product, onAdd }: { product: Product, onAdd: (p: Product) => void }) {
   return (
     <div className="bg-[var(--color-tg-secondary-bg)] rounded-2xl overflow-hidden flex flex-col border border-white/5 hover:border-[var(--color-tg-primary)]/50 transition-colors shadow-sm">
-      <div className="h-36 bg-[#130f1c] flex items-center justify-center overflow-hidden p-3 relative">
+      <div className="h-36 bg-[#130f1c] flex items-center justify-center overflow-hidden relative">
         {product.image ? (
-          <img src={product.image} alt={product.name} className="object-contain h-full w-full drop-shadow-lg" />
+          <img src={product.image} alt={product.name} className="object-cover h-full w-full drop-shadow-lg" />
         ) : (
           <Package size={48} className="text-[var(--color-tg-hint)] opacity-20" />
         )}
