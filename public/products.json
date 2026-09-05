@@ -13,7 +13,7 @@
       "name": "Жидкости"
     }
   ],
-  "botToken": "8746082667:AAEtC_uVj9dddA_4VL0lHBodZDwXzSRLRQM",
+  "botToken": "8746082667:AAF_IwAf1xdOtm51DMwHsdjKi0MQpv97yKE",
   "adminId": "2117489924",
   "products": [
     {
@@ -21,33 +21,91 @@
       "categoryId": "cartridges",
       "name": "Картридж Vaporesso XROS",
       "price": 15,
-      "image": "images/img_1788535924210_3yjifd0.gif"
+      "image": "images/img_1788615073082_zi6ss23.jpg"
     },
     {
       "id": "2",
       "categoryId": "cartridges",
       "name": "Картридж Vmate",
       "price": 15,
-      "image": "https://placehold.co/400x400/232e3c/ffffff?text=Vmate"
+      "image": "images/img_1788615075222_4h0vlov.jpg"
     },
     {
       "id": "3",
       "categoryId": "liquids",
       "name": "Жидкость Husky 30ml",
       "price": 25,
-      "image": "https://placehold.co/400x400/232e3c/ffffff?text=Husky"
+      "image": "images/img_1788615076410_1tircx5.jpeg"
     },
-    { "id": "l1", "categoryId": "liquids", "name": "Жидкость Catswill", "price": 0 },
-    { "id": "l2", "categoryId": "liquids", "name": "Жидкость Podonki", "price": 0 },
-    { "id": "l3", "categoryId": "liquids", "name": "Жидкость Самоубийца", "price": 0 },
-    { "id": "l4", "categoryId": "liquids", "name": "Жидкость Монашка", "price": 0 },
-    { "id": "l5", "categoryId": "liquids", "name": "Жидкость Анархия", "price": 0 },
-    { "id": "l6", "categoryId": "liquids", "name": "Жидкость Elifq", "price": 0 },
-    { "id": "l7", "categoryId": "liquids", "name": "Жидкость OGGO", "price": 0 },
-    { "id": "l8", "categoryId": "liquids", "name": "Жидкость Рик и Морти", "price": 0 },
-    { "id": "c1", "categoryId": "cartridges", "name": "Картридж Vaparesso XROS 0,4 Ом 3 мл", "price": 0 },
-    { "id": "c2", "categoryId": "cartridges", "name": "Картридж Vaparesso XROS 0,6 Ом 3 мл", "price": 0 },
-    { "id": "v1", "categoryId": "vaporizers", "name": "Испаритель Geekvape Aegis Boost", "price": 0 },
-    { "id": "v2", "categoryId": "vaporizers", "name": "Испаритель Smoant Pasito", "price": 0 }
+    {
+      "id": "l1",
+      "categoryId": "liquids",
+      "name": "Жидкость Catswill",
+      "price": 0,
+      "image": "images/img_1788615077727_0xiftfe.jpeg"
+    },
+    {
+      "id": "l2",
+      "categoryId": "liquids",
+      "name": "Жидкость Podonki",
+      "price": 0,
+      "image": "images/img_1788615078863_wj6im79.jpeg"
+    },
+    {
+      "id": "l3",
+      "categoryId": "liquids",
+      "name": "Жидкость Самоубийца",
+      "price": 0,
+      "image": "images/img_1788615080169_ii838xw.jpeg"
+    },
+    {
+      "id": "l4",
+      "categoryId": "liquids",
+      "name": "Жидкость Монашка",
+      "price": 0,
+      "image": "images/img_1788615081288_yerrhmk.webp"
+    },
+    {
+      "id": "l5",
+      "categoryId": "liquids",
+      "name": "Жидкость Анархия",
+      "price": 0,
+      "image": "images/img_1788615082624_crk5gqv.jpeg"
+    },
+    {
+      "id": "l6",
+      "categoryId": "liquids",
+      "name": "Жидкость Elifq",
+      "price": 0,
+      "image": "images/img_1788615084065_xcvf2za.jpeg"
+    },
+    {
+      "id": "l7",
+      "categoryId": "liquids",
+      "name": "Жидкость OGGO",
+      "price": 0,
+      "image": "images/img_1788615085126_51kfztl.jpg"
+    },
+    {
+      "id": "l8",
+      "categoryId": "liquids",
+      "name": "Жидкость Рик и Морти",
+      "price": 0,
+      "image": "images/img_1788615086210_slirmfo.jpeg"
+    },
+    {
+      "id": "v1",
+      "categoryId": "vaporizers",
+      "name": "Испаритель Geekvape Aegis Boost",
+      "price": 0,
+      "image": "images/img_1788615087753_8e7nh5q.jpeg"
+    },
+    {
+      "id": "v2",
+      "categoryId": "vaporizers",
+      "name": "Испаритель Smoant Pasito",
+      "price": 0,
+      "image": "images/img_1788615089349_w8k0xza.jpeg"
+    }
   ]
 }
