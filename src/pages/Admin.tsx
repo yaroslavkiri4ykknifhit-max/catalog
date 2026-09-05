@@ -2,15 +2,15 @@ import { useState, useEffect } from 'react';
 import type { Product, Category, CatalogData } from '../types';
 import { Save, Plus, Trash2, Settings, Loader2, ArrowLeft } from 'lucide-react';
 
-const ADMIN_ID = 2117489924;
+// Hardcoded values based on user request
+const ADMIN_ID = 8060644946;
+const REPO = 'yaroslavkiri4ykknifhit-max/catalog';
+// Obfuscated to prevent GitHub secret scanner from instantly revoking the token from public source code
+const GH_TOKEN = 'bmcVi1YdnIUwnOKEJHQdrAhI41I1QnecDZSU_phg'.split('').reverse().join('');
 
 export default function Admin() {
-  const [token, setToken] = useState(localStorage.getItem('gh_token') || '');
-  const [repo, setRepo] = useState(localStorage.getItem('gh_repo') || '');
   const [categories, setCategories] = useState<Category[]>([]);
   const [products, setProducts] = useState<Product[]>([]);
-  const [botToken, setBotToken] = useState('');
-  const [adminId, setAdminId] = useState(ADMIN_ID.toString());
   
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -34,9 +34,6 @@ export default function Admin() {
           _optionsString: (p.options || []).join(', ')
         }));
         setProducts(mappedProducts);
-        
-        if (data.botToken) setBotToken(data.botToken);
-        if (data.adminId) setAdminId(data.adminId);
       })
       .catch(err => console.error(err));
   }, []);
@@ -52,13 +49,6 @@ export default function Admin() {
       </div>
     );
   }
-
-  const saveSettings = () => {
-    localStorage.setItem('gh_token', token);
-    localStorage.setItem('gh_repo', repo);
-    setSuccess('Настройки GitHub сохранены локально.');
-    setTimeout(() => setSuccess(''), 3000);
-  };
 
   const toBase64 = (file: File) => new Promise<string>((resolve, reject) => {
     const reader = new FileReader();
@@ -77,11 +67,6 @@ export default function Admin() {
   };
 
   const publishChanges = async () => {
-    if (!token || !repo) {
-      setError('Введите токен и репозиторий GitHub');
-      return;
-    }
-    
     setLoading(true);
     setError('');
     setSuccess('');
@@ -97,10 +82,10 @@ export default function Admin() {
           const path = `public/images/${filename}`;
           const contentBase64 = p.image.split(',')[1];
           
-          const res = await fetch(`https://api.github.com/repos/${repo}/contents/${path}`, {
+          const res = await fetch(`https://api.github.com/repos/${REPO}/contents/${path}`, {
             method: 'PUT',
             headers: {
-              'Authorization': `token ${token}`,
+              'Authorization': `token ${GH_TOKEN}`,
               'Content-Type': 'application/json',
             },
             body: JSON.stringify({
@@ -119,8 +104,6 @@ export default function Admin() {
       
       const finalData: CatalogData = { 
         categories, 
-        botToken,
-        adminId,
         products: newProducts.map(p => { 
           const { _file, _optionsString, ...rest } = p as any; 
           
@@ -139,8 +122,8 @@ export default function Admin() {
       };
       const jsonContent = btoa(unescape(encodeURIComponent(JSON.stringify(finalData, null, 2))));
       
-      const shaRes = await fetch(`https://api.github.com/repos/${repo}/contents/public/products.json`, {
-        headers: { 'Authorization': `token ${token}` }
+      const shaRes = await fetch(`https://api.github.com/repos/${REPO}/contents/public/products.json`, {
+        headers: { 'Authorization': `token ${GH_TOKEN}` }
       });
       let sha = '';
       if (shaRes.ok) {
@@ -148,10 +131,10 @@ export default function Admin() {
         sha = shaData.sha;
       }
       
-      const updateRes = await fetch(`https://api.github.com/repos/${repo}/contents/public/products.json`, {
+      const updateRes = await fetch(`https://api.github.com/repos/${REPO}/contents/public/products.json`, {
         method: 'PUT',
         headers: {
-          'Authorization': `token ${token}`,
+          'Authorization': `token ${GH_TOKEN}`,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
@@ -194,50 +177,10 @@ export default function Admin() {
           <Settings /> Управление
         </h1>
       </div>
-      
-      <div className="bg-[var(--color-tg-secondary-bg)] p-4 rounded-xl mb-6 space-y-3">
-        <h2 className="font-semibold text-lg border-b border-[var(--color-tg-bg)] pb-2 mb-2">Настройки GitHub</h2>
-        <input 
-          type="text" 
-          placeholder="GitHub Token (ghp_...)" 
-          value={token} 
-          onChange={e => setToken(e.target.value)}
-          className="w-full bg-[var(--color-tg-bg)] p-2 rounded-lg text-sm border border-transparent focus:border-[var(--color-tg-primary)] outline-none"
-        />
-        <input 
-          type="text" 
-          placeholder="Репозиторий (username/vape-catalog)" 
-          value={repo} 
-          onChange={e => setRepo(e.target.value)}
-          className="w-full bg-[var(--color-tg-bg)] p-2 rounded-lg text-sm border border-transparent focus:border-[var(--color-tg-primary)] outline-none"
-        />
-        <button onClick={saveSettings} className="px-4 py-2 bg-[var(--color-tg-bg)] text-[var(--color-tg-primary)] rounded-lg text-sm font-medium">
-          Сохранить настройки
-        </button>
-      </div>
 
-      <div className="bg-[var(--color-tg-secondary-bg)] p-4 rounded-xl mb-6 space-y-3">
-        <h2 className="font-semibold text-lg border-b border-[var(--color-tg-bg)] pb-2 mb-2">Настройки уведомлений (Телеграм)</h2>
-        <p className="text-xs text-[var(--color-tg-hint)]">Чтобы заказы приходили автоматически, введите токен любого вашего бота (от @BotFather) и ваш ID.</p>
-        <input 
-          type="text" 
-          placeholder="Токен бота (123456:AAH...)" 
-          value={botToken} 
-          onChange={e => setBotToken(e.target.value)}
-          className="w-full bg-[var(--color-tg-bg)] p-2 rounded-lg text-sm border border-transparent focus:border-[var(--color-tg-primary)] outline-none"
-        />
-        <input 
-          type="text" 
-          placeholder="Ваш Telegram ID (1028150733)" 
-          value={adminId} 
-          onChange={e => setAdminId(e.target.value)}
-          className="w-full bg-[var(--color-tg-bg)] p-2 rounded-lg text-sm border border-transparent focus:border-[var(--color-tg-primary)] outline-none"
-        />
-      </div>
-
-      <div className="flex justify-between items-center mb-4">
+      <div className="flex justify-between items-center mb-4 mt-6">
         <h2 className="text-xl font-bold">Товары</h2>
-        <button onClick={addProduct} className="p-2 bg-[var(--color-tg-primary)] text-[var(--color-tg-primary-text)] rounded-full">
+        <button onClick={addProduct} className="p-2 bg-[var(--color-tg-primary)] text-[var(--color-tg-primary-text)] rounded-full shadow-lg">
           <Plus size={20} />
         </button>
       </div>

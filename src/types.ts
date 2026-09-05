@@ -20,6 +20,4 @@ export interface CartItem extends Product {
 export interface CatalogData {
   categories: Category[];
   products: Product[];
-  botToken?: string;
-  adminId?: string;
 }

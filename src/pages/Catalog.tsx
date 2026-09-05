@@ -2,11 +2,12 @@ import { useEffect, useState } from 'react';
 import { ShoppingCart, Package, Trash2, CheckCircle2, Settings } from 'lucide-react';
 import type { Product, Category, CartItem } from '../types';
 
+const BOT_TOKEN = '8746082667:AAF_IwAf1xdOtm51DMwHsdjKi0MQpv97yKE';
+const ADMIN_ID = '8060644946';
+
 export default function Catalog() {
   const [categories, setCategories] = useState<Category[]>([]);
   const [products, setProducts] = useState<Product[]>([]);
-  const [botToken, setBotToken] = useState<string | undefined>();
-  const [adminId, setAdminId] = useState<string | undefined>();
   
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
   const [cart, setCart] = useState<CartItem[]>([]);
@@ -37,8 +38,6 @@ export default function Catalog() {
       .then(([data]) => {
         setCategories(data.categories || []);
         setProducts(data.products || []);
-        if (data.botToken) setBotToken(data.botToken);
-        if (data.adminId) setAdminId(data.adminId);
         
         if (data.categories?.length > 0) {
           setActiveCategory(data.categories[0].id);
@@ -96,33 +95,30 @@ export default function Catalog() {
     const usernameText = tgUser?.username ? `\nОт: @${tgUser.username}` : `\nОт: @${clientUsername.replace('@', '')}`;
     const message = `Новый заказ!\n\n${text}${totalText}${usernameText}`;
     
-    if (botToken && adminId) {
-      try {
-        const res = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            chat_id: adminId,
-            text: message
-          })
-        });
-        if (res.ok) {
-          setOrderSuccess(true);
-          setCart([]);
-        } else {
-          alert('Ошибка при отправке заказа.');
-        }
-      } catch (err) {
+    try {
+      const res = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          chat_id: ADMIN_ID,
+          text: message
+        })
+      });
+      if (res.ok) {
+        setOrderSuccess(true);
+        setCart([]);
+      } else {
         alert('Ошибка при отправке заказа.');
       }
-    } else {
-      alert('Ошибка: Бот не настроен администратором.');
+    } catch (err) {
+      alert('Ошибка при отправке заказа.');
     }
+    
     setOrderLoading(false);
   };
 
   const filteredProducts = products.filter(p => p.categoryId === activeCategory);
-  const isAdmin = tgUserId?.toString() === adminId?.toString();
+  const isAdmin = tgUserId?.toString() === ADMIN_ID;
 
   return (
     <div className="min-h-screen pb-24 relative bg-[var(--color-tg-bg)]">
