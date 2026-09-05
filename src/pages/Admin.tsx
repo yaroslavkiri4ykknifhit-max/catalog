@@ -28,7 +28,13 @@ export default function Admin() {
       .then(res => res.json())
       .then((data: CatalogData) => {
         setCategories(data.categories || []);
-        setProducts(data.products || []);
+        // Преобразуем массив options в строку для удобного редактирования
+        const mappedProducts = (data.products || []).map(p => ({
+          ...p,
+          _optionsString: (p.options || []).join(', ')
+        }));
+        setProducts(mappedProducts);
+        
         if (data.botToken) setBotToken(data.botToken);
         if (data.adminId) setAdminId(data.adminId);
       })
@@ -115,7 +121,21 @@ export default function Admin() {
         categories, 
         botToken,
         adminId,
-        products: newProducts.map(p => { const { _file, ...rest } = p as any; return rest; }) 
+        products: newProducts.map(p => { 
+          const { _file, _optionsString, ...rest } = p as any; 
+          
+          // Парсим строку обратно в массив при сохранении
+          if (_optionsString !== undefined) {
+            const optionsArray = _optionsString.split(',').map((s: string) => s.trim()).filter((s: string) => s);
+            if (optionsArray.length > 0) {
+              rest.options = optionsArray;
+            } else {
+              delete rest.options;
+            }
+          }
+          
+          return rest; 
+        }) 
       };
       const jsonContent = btoa(unescape(encodeURIComponent(JSON.stringify(finalData, null, 2))));
       
@@ -157,7 +177,7 @@ export default function Admin() {
 
   const addProduct = () => {
     const newId = Date.now().toString();
-    setProducts([...products, { id: newId, name: 'Новый товар', price: 0, categoryId: categories[0]?.id || '' }]);
+    setProducts([...products, { id: newId, name: 'Новый товар', price: 0, categoryId: categories[0]?.id || '', _optionsString: '' } as any]);
   };
 
   const updateProduct = (id: string, field: string, value: any) => {
@@ -270,8 +290,8 @@ export default function Admin() {
             <div className="mt-2 pt-2 border-t border-[var(--color-tg-bg)]">
               <input 
                 type="text" 
-                value={(p.options || []).join(', ')} 
-                onChange={e => updateProduct(p.id, 'options', e.target.value.split(',').map(s => s.trim()).filter(s => s))}
+                value={(p as any)._optionsString ?? ''} 
+                onChange={e => updateProduct(p.id, '_optionsString', e.target.value)}
                 className="w-full bg-[var(--color-tg-bg)] p-2 rounded-lg text-sm outline-none"
                 placeholder="Варианты (вкусы) через запятую: Яблоко, Манго, Вишня"
               />
