@@ -18,7 +18,7 @@
       "id": "1",
       "categoryId": "cartridges",
       "name": "Картридж Vaporesso XROS",
-      "price": 15,
+      "price": 13,
       "image": "images/img_1788615073082_zi6ss23.jpg",
       "options": [
         "0.4 Ом 3 ml",
@@ -26,78 +26,59 @@
       ]
     },
     {
-      "id": "2",
-      "categoryId": "cartridges",
-      "name": "Картридж Vmate",
-      "price": 15,
-      "image": "images/img_1788615075222_4h0vlov.jpg"
-    },
-    {
-      "id": "3",
-      "categoryId": "liquids",
-      "name": "Жидкость Husky 30ml",
-      "price": 25,
-      "image": "images/img_1788615076410_1tircx5.jpeg",
-      "options": [
-        "Яблоко",
-        "манго",
-        "Черника-Яблоко"
-      ]
-    },
-    {
       "id": "l1",
       "categoryId": "liquids",
       "name": "Жидкость Catswill",
-      "price": 0,
+      "price": 15,
       "image": "images/img_1788615077727_0xiftfe.jpeg"
     },
     {
       "id": "l2",
       "categoryId": "liquids",
       "name": "Жидкость Podonki",
-      "price": 0,
+      "price": 15,
       "image": "images/img_1788615078863_wj6im79.jpeg"
     },
     {
       "id": "l3",
       "categoryId": "liquids",
       "name": "Жидкость Самоубийца",
-      "price": 0,
+      "price": 16,
       "image": "images/img_1788615080169_ii838xw.jpeg"
     },
     {
       "id": "l4",
       "categoryId": "liquids",
       "name": "Жидкость Монашка",
-      "price": 0,
+      "price": 16,
       "image": "images/img_1788615081288_yerrhmk.webp"
     },
     {
       "id": "l5",
       "categoryId": "liquids",
       "name": "Жидкость Анархия",
-      "price": 0,
+      "price": 16,
       "image": "images/img_1788615082624_crk5gqv.jpeg"
     },
     {
       "id": "l6",
       "categoryId": "liquids",
       "name": "Жидкость Elifq",
-      "price": 0,
+      "price": 16,
       "image": "images/img_1788615084065_xcvf2za.jpeg"
     },
     {
       "id": "l7",
       "categoryId": "liquids",
       "name": "Жидкость OGGO",
-      "price": 0,
+      "price": 16,
       "image": "images/img_1788615085126_51kfztl.jpg"
     },
     {
       "id": "l8",
       "categoryId": "liquids",
       "name": "Жидкость Рик и Морти",
-      "price": 0,
+      "price": 15,
       "image": "images/img_1788615086210_slirmfo.jpeg"
     },
     {
