@@ -35,7 +35,12 @@
       "categoryId": "liquids",
       "name": "Жидкость Husky 30ml",
       "price": 25,
-      "image": "images/img_1788615076410_1tircx5.jpeg"
+      "image": "images/img_1788615076410_1tircx5.jpeg",
+      "options": [
+        "Яблоко",
+        "манго",
+        "Черника-Яблоко"
+      ]
     },
     {
       "id": "l1",
