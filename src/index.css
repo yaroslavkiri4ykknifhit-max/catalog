@@ -1,13 +1,14 @@
 @import "tailwindcss";
 
 @theme {
-  --color-tg-bg: var(--tg-theme-bg-color, #130f1c);
-  --color-tg-text: var(--tg-theme-text-color, #ffffff);
-  --color-tg-hint: var(--tg-theme-hint-color, #a78bfa); /* light purple hint */
-  --color-tg-link: var(--tg-theme-link-color, #c084fc);
-  --color-tg-primary: #7c3aed; /* Deep purple matching logo */
+  /* Форсируем темную киберпанк тему независимо от настроек Telegram */
+  --color-tg-bg: #130f1c;
+  --color-tg-text: #ffffff;
+  --color-tg-hint: #a78bfa; 
+  --color-tg-link: #c084fc;
+  --color-tg-primary: #7c3aed; 
   --color-tg-primary-text: #ffffff;
-  --color-tg-secondary-bg: #1e1b2e; /* Dark purple/gray */
+  --color-tg-secondary-bg: #1e1b2e; 
   --color-gold: #d4af37;
 }
 
