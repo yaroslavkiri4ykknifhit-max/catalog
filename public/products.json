@@ -22,7 +22,7 @@
       "image": "images/img_1788615073082_zi6ss23.jpg",
       "options": [
         "0.4 Ом 3 ml",
-        "0.6 Ом 3 ml"
+        "0.6 Ом 2 ml"
       ]
     },
     {
@@ -84,16 +84,31 @@
     {
       "id": "v1",
       "categoryId": "vaporizers",
-      "name": "Испаритель Geekvape Aegis Boost",
+      "name": "Испаритель Geekvape Aegis Boost, Aegis Hero",
       "price": 0,
-      "image": "images/img_1788615087753_8e7nh5q.jpeg"
+      "image": "images/img_1788615087753_8e7nh5q.jpeg",
+      "options": [
+        "0.2 Ом"
+      ]
     },
     {
       "id": "v2",
       "categoryId": "vaporizers",
       "name": "Испаритель Smoant Pasito",
       "price": 0,
-      "image": "images/img_1788615089349_w8k0xza.jpeg"
+      "image": "images/img_1788615089349_w8k0xza.jpeg",
+      "options": [
+        "0.6 Ом"
+      ]
+    },
+    {
+      "id": "1788718903177",
+      "name": "Картридж Geekvape H45",
+      "price": 0,
+      "categoryId": "cartridges",
+      "options": [
+        "0.4 Ом 5 ml"
+      ]
     }
   ]
 }
