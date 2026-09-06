@@ -104,8 +104,9 @@
     {
       "id": "1788718903177",
       "name": "Картридж Geekvape H45",
-      "price": 0,
+      "price": 20,
       "categoryId": "cartridges",
+      "image": "images/img_1788719048506_j5rt0gg.jpeg",
       "options": [
         "0.4 Ом 5 ml"
       ]
