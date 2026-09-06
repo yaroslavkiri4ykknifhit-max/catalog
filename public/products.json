@@ -61,25 +61,11 @@
       "image": "images/img_1788615082624_crk5gqv.jpeg"
     },
     {
-      "id": "l6",
-      "categoryId": "liquids",
-      "name": "Жидкость Elifq",
-      "price": 16,
-      "image": "images/img_1788615084065_xcvf2za.jpeg"
-    },
-    {
-      "id": "l7",
-      "categoryId": "liquids",
-      "name": "Жидкость OGGO",
-      "price": 16,
-      "image": "images/img_1788615085126_51kfztl.jpg"
-    },
-    {
       "id": "l8",
       "categoryId": "liquids",
-      "name": "Жидкость Рик и Морти",
+      "name": "Жидкость Рик и Морти на замерзоне ",
       "price": 15,
-      "image": "images/img_1788615086210_slirmfo.jpeg"
+      "image": "images/img_1788719486440_9779fex.jpeg"
     },
     {
       "id": "v1",
