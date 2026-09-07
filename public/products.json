@@ -43,8 +43,11 @@
       "id": "l3",
       "categoryId": "liquids",
       "name": "Жидкость Самоубийца",
-      "price": 16,
-      "image": "images/img_1788615080169_ii838xw.jpeg"
+      "price": 0,
+      "image": "images/img_1788615080169_ii838xw.jpeg",
+      "options": [
+        "Нет в наличии"
+      ]
     },
     {
       "id": "l4",
@@ -57,8 +60,11 @@
       "id": "l5",
       "categoryId": "liquids",
       "name": "Жидкость Анархия",
-      "price": 16,
-      "image": "images/img_1788615082624_crk5gqv.jpeg"
+      "price": 0,
+      "image": "images/img_1788615082624_crk5gqv.jpeg",
+      "options": [
+        "Нет в наличии"
+      ]
     },
     {
       "id": "l8",
@@ -96,6 +102,27 @@
       "options": [
         "0.4 Ом 5 ml"
       ]
+    },
+    {
+      "id": "1788767304225",
+      "name": "Жидкость Yummy",
+      "price": 15,
+      "categoryId": "liquids",
+      "image": "images/img_1788767467521_y9e3857.jpeg"
+    },
+    {
+      "id": "1788767305736",
+      "name": "Жидкость Annima",
+      "price": 15,
+      "categoryId": "liquids",
+      "image": "images/img_1788767470009_i2r5spk.jpeg"
+    },
+    {
+      "id": "1788767308387",
+      "name": "Жидкость Грех",
+      "price": 15,
+      "categoryId": "liquids",
+      "image": "images/img_1788767471737_tpg3uf2.jpeg"
     }
   ]
 }
