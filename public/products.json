@@ -51,7 +51,11 @@
       "categoryId": "liquids",
       "name": "Жидкость Podonki",
       "price": 15,
-      "image": "images/img_1788767095794_0ukd70v.jpeg"
+      "image": "images/img_1788767095794_0ukd70v.jpeg",
+      "options": [
+        "Soda апельсин подонки Vintage",
+        "Черника виноград Alfa"
+      ]
     },
     {
       "id": "l3",
