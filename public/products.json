@@ -30,14 +30,14 @@
       "categoryId": "liquids",
       "name": "Жидкость Catswill",
       "price": 15,
-      "image": "images/img_1788615077727_0xiftfe.jpeg"
+      "image": "images/img_1788767092761_2hrydi5.jpeg"
     },
     {
       "id": "l2",
       "categoryId": "liquids",
-      "name": "Жидкость Podonki",
+      "name": "Жидкость Podonki Vintage",
       "price": 15,
-      "image": "images/img_1788615078863_wj6im79.jpeg"
+      "image": "images/img_1788767095794_0ukd70v.jpeg"
     },
     {
       "id": "l3",
@@ -51,7 +51,7 @@
       "categoryId": "liquids",
       "name": "Жидкость Монашка",
       "price": 16,
-      "image": "images/img_1788615081288_yerrhmk.webp"
+      "image": "images/img_1788767097428_5d4j1gn.jpeg"
     },
     {
       "id": "l5",
@@ -65,7 +65,7 @@
       "categoryId": "liquids",
       "name": "Жидкость Рик и Морти на замерзоне ",
       "price": 15,
-      "image": "images/img_1788719486440_9779fex.jpeg"
+      "image": "images/img_1788767098950_nvldu0x.jpeg"
     },
     {
       "id": "v1",
