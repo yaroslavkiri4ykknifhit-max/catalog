@@ -32,3 +32,20 @@ body {
   background: #4c1d95;
   border-radius: 10px;
 }
+
+/* Keep the product option arrow distinct from the dark select background. */
+.grid.grid-cols-2 select {
+  -webkit-appearance: none;
+  appearance: none;
+  padding-right: 2rem;
+  border-color: #a855f7;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20' fill='none' stroke='%23f0abfc' stroke-width='2.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m5 7 5 5 5-5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.5rem center;
+  background-size: 1.25rem;
+}
+
+.grid.grid-cols-2 select:focus-visible {
+  border-color: #f0abfc;
+  box-shadow: 0 0 0 1px #f0abfc;
+}

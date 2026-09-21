@@ -11,6 +11,18 @@
     {
       "id": "liquids",
       "name": "Жидкости"
+    },
+    {
+      "id": "pod-systems",
+      "name": "POD-системы"
+    },
+    {
+      "id": "snus",
+      "name": "Снюс"
+    },
+    {
+      "id": "disposables",
+      "name": "Одноразки"
     }
   ],
   "products": [
