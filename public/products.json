@@ -41,7 +41,7 @@
       "id": "l1",
       "categoryId": "liquids",
       "name": "Жидкость Catswill",
-      "price": 15,
+      "price": 14,
       "image": "images/img_1788767092761_2hrydi5.jpeg",
       "options": [
         "Кислая газировка с черникой из смородины и клюквой",
@@ -107,7 +107,7 @@
       "id": "l8",
       "categoryId": "liquids",
       "name": "Жидкость Рик и Морти на замерзоне ",
-      "price": 14,
+      "price": 13.5,
       "image": "images/img_1788767098950_nvldu0x.jpeg",
       "options": [
         "Лесные ягоды",
