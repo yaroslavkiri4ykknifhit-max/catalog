@@ -286,11 +286,19 @@
     {
       "id": "1790352461036",
       "name": "Жидкость ELFLIQ",
-      "price": 0,
+      "price": 999,
       "categoryId": "liquids",
       "image": "images/img_1790352648875_vxnyjrq.jpeg",
       "options": [
-        "нет в наличии"
+        "Вишневая кола-Cherry Cola",
+        "Анисовое семя черной смородины-Blackcurrant Aniseed",
+        "Арбуз- Watermelon",
+        "Голубой лимонад лимонад-Blue Razz Lemonade",
+        "P&B Cloudd",
+        "Манго персик-Mango Peach",
+        "Розовый лимонад-Pink Lemonade",
+        "Черника Роза Мята-Blueberry Rose Mint",
+        "Вишня лимон персик-Cherry Lemon Peach"
       ]
     },
     {
