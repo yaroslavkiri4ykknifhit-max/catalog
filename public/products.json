@@ -61,7 +61,7 @@
     {
       "id": "l2",
       "categoryId": "liquids",
-      "name": "Жидкость Podonki",
+      "name": "Жидкость Podonki Vintage",
       "price": 15,
       "image": "images/img_1788767095794_0ukd70v.jpeg",
       "options": [
@@ -203,7 +203,7 @@
       "name": "ELFBAR 22K",
       "price": 0,
       "categoryId": "disposables",
-      "image": "images/img_1790348846758_t1mc9an.jpeg",
+      "image": "images/img_1790351245523_2ui6bgg.jpeg",
       "options": [
         "нет в наличии"
       ]
@@ -220,7 +220,7 @@
     },
     {
       "id": "1790349429608",
-      "name": "Жидкость OGGO",
+      "name": "Жидкость OGGO ",
       "price": 0,
       "categoryId": "liquids",
       "image": "images/img_1790349641355_946uxqo.jpeg",
@@ -257,6 +257,13 @@
       "options": [
         "нет в наличии"
       ]
+    },
+    {
+      "id": "1790351211803",
+      "name": "XROS 6 MINI",
+      "price": 0,
+      "categoryId": "pod-systems",
+      "image": "images/img_1790351247765_m8z4u4w.jpeg"
     }
   ]
 }
