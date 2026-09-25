@@ -61,7 +61,7 @@
     {
       "id": "l2",
       "categoryId": "liquids",
-      "name": "Жидкость Podonki",
+      "name": "Жидкость Podonki Vintage",
       "price": 15,
       "image": "images/img_1788767095794_0ukd70v.jpeg",
       "options": [
@@ -109,7 +109,7 @@
     {
       "id": "l8",
       "categoryId": "liquids",
-      "name": "Жидкость Рик и Морти на замерзоне ",
+      "name": "Жидкость  Рик и Морти на замерзоне ",
       "price": 13.5,
       "image": "images/img_1788767098950_nvldu0x.jpeg",
       "options": [
@@ -156,7 +156,7 @@
     },
     {
       "id": "1788767304225",
-      "name": "Жидкость Yummy",
+      "name": "Жидкость  Yummy",
       "price": 15,
       "categoryId": "liquids",
       "image": "images/img_1788767467521_y9e3857.jpeg",
@@ -167,7 +167,7 @@
     },
     {
       "id": "1788767305736",
-      "name": "Жидкость Annima",
+      "name": "Жидкость  Annima",
       "price": 15,
       "categoryId": "liquids",
       "image": "images/img_1788767470009_i2r5spk.jpeg",
@@ -177,7 +177,7 @@
     },
     {
       "id": "1788767308387",
-      "name": "Жидкость Грех",
+      "name": "Жидкость  Грех",
       "price": 15,
       "categoryId": "liquids",
       "image": "images/img_1788767471737_tpg3uf2.jpeg",
@@ -190,12 +190,160 @@
     },
     {
       "id": "1788798931791",
-      "name": "Жид ость Dota",
+      "name": "Жидкость  Dota",
       "price": 15,
       "categoryId": "liquids",
       "image": "images/img_1788799758081_cnd0uxo.jpeg",
       "options": [
         "Lina энергетик с киви и яблоком"
+      ]
+    },
+    {
+      "id": "1790344908392",
+      "name": "Жидкость  OGGO REELS",
+      "price": 0,
+      "categoryId": "liquids",
+      "image": "images/img_1790346310287_y8zqh9p.jpeg",
+      "options": [
+        "Нет в наличии",
+        "Папайя банан",
+        "Пина колада",
+        "Клубника личи",
+        "Маракуя апельсин гуава",
+        "Сладкий манго"
+      ]
+    },
+    {
+      "id": "1790344910108",
+      "name": "Жидкость OGGO SOUR",
+      "price": 0,
+      "categoryId": "liquids",
+      "image": "images/img_1790346312277_eztfgiv.jpeg",
+      "options": [
+        "Нет в наличии",
+        "Клюквенная содовая",
+        "Киви лимон клюква",
+        "Кислый ананас малина"
+      ]
+    },
+    {
+      "id": "1790345218817",
+      "name": "Жидкость PODONKI V1/V2",
+      "price": 0,
+      "categoryId": "liquids",
+      "image": "images/img_1790346313729_uzrh76a.jpeg",
+      "options": [
+        "Нет в наличии",
+        "Лесные ягоды",
+        "Малина вишня",
+        "Смородиновый холс",
+        "Черника малина мята",
+        "Клубника малина жвачка",
+        "Брусника малина клюква",
+        "Ананасовый энергетик",
+        "Лимонад смородина"
+      ]
+    },
+    {
+      "id": "1790345219140",
+      "name": "Жидкость ELFLIQ",
+      "price": 0,
+      "categoryId": "liquids",
+      "image": "images/img_1790346315290_dve7kdk.jpeg",
+      "options": [
+        "Нет в наличии",
+        "Вишневая кола-Cherry Cola",
+        "Анисовое семя черной смородины-Blackcurrant Aniseed",
+        "Арбуз- Watermelon",
+        "Голубой лимонад лимонад-Blue Razz Lemonade",
+        "P&B Cloudd",
+        "Манго персик-Mango Peach",
+        "Розовый лимонад-Pink Lemonade",
+        "Черника Роза Мята-Blueberry Rose Mint",
+        "Вишня лимон персик-Cherry Lemon Peach"
+      ]
+    },
+    {
+      "id": "1790345219576",
+      "name": "Жидкость PODONKI АНАРХИЯ",
+      "price": 0,
+      "categoryId": "liquids",
+      "image": "images/img_1790346316498_zp5fqi4.jpeg",
+      "options": [
+        "Нет в наличии",
+        "Чизкейк голубика",
+        "Лимонный мармелад",
+        "Клюквенная содовая",
+        "Лимонад из детства",
+        "Груша кокос"
+      ]
+    },
+    {
+      "id": "1790345795929",
+      "name": "Снюс DRYMOST",
+      "price": 0,
+      "categoryId": "snus",
+      "image": "images/img_1790346318641_o78lon8.jpeg"
+    },
+    {
+      "id": "1790345796352",
+      "name": "Снюс DRYMOST",
+      "price": 0,
+      "categoryId": "snus",
+      "image": "images/img_1790346321051_koy9ayp.jpeg"
+    },
+    {
+      "id": "1790345796753",
+      "name": "Снюс DRYMOST",
+      "price": 0,
+      "categoryId": "snus",
+      "image": "images/img_1790346323530_v8baqw3.jpeg"
+    },
+    {
+      "id": "1790345797072",
+      "name": "ELFBAR GH23000",
+      "price": 0,
+      "categoryId": "disposables",
+      "image": "images/img_1790346324730_cv975kp.jpeg",
+      "options": [
+        "Нет в наличии",
+        "WATERMELON",
+        "JASMINE RASPBERRY",
+        "STRAWBARRY GRAPE"
+      ]
+    },
+    {
+      "id": "1790345837043",
+      "name": "ELFBAR GH33000",
+      "price": 0,
+      "categoryId": "disposables",
+      "image": "images/img_1790346326178_rcggwo7.jpeg",
+      "options": [
+        "Pomegranate Burst"
+      ]
+    },
+    {
+      "id": "1790345837447",
+      "name": "XROS 6 MINI",
+      "price": 0,
+      "categoryId": "pod-systems",
+      "image": "images/img_1790346328127_ehmmpd4.jpeg",
+      "options": [
+        "Нет в наличии"
+      ]
+    },
+    {
+      "id": "1790345837881",
+      "name": "Никотиновые пластинки LOOP DOZA",
+      "price": 0,
+      "categoryId": "snus",
+      "image": "images/img_1790346329730_5w3vfl6.jpeg",
+      "options": [
+        "Нет в наличии",
+        "ENERGY",
+        "COLA",
+        "IZABELLA",
+        "RASPBERRY"
       ]
     }
   ]
