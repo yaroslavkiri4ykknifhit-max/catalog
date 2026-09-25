@@ -227,6 +227,36 @@
       "options": [
         "нет в наличии"
       ]
+    },
+    {
+      "id": "1790349892857",
+      "name": "Снюс DRYMOST 150мг",
+      "price": 0,
+      "categoryId": "snus",
+      "image": "images/img_1790350004632_xrp03x1.jpeg",
+      "options": [
+        "нет в наличии"
+      ]
+    },
+    {
+      "id": "1790349893655",
+      "name": "Снюс DRYMOST 175мг",
+      "price": 0,
+      "categoryId": "snus",
+      "image": "images/img_1790350007102_z8ktx8d.jpeg",
+      "options": [
+        "нет в наличии"
+      ]
+    },
+    {
+      "id": "1790349900701",
+      "name": "Снюс DRYMOST 200мг",
+      "price": 0,
+      "categoryId": "snus",
+      "image": "images/img_1790350009068_io0ag9v.jpeg",
+      "options": [
+        "нет в наличии"
+      ]
     }
   ]
 }
