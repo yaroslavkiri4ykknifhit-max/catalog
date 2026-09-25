@@ -220,7 +220,7 @@
     },
     {
       "id": "1790349429608",
-      "name": "Жидкость OGGO",
+      "name": "Жидкость OGGO SOUR",
       "price": 0,
       "categoryId": "liquids",
       "image": "images/img_1790349641355_946uxqo.jpeg",
@@ -274,6 +274,46 @@
       "price": 0,
       "categoryId": "snus",
       "image": "images/img_1790352451366_mwbg788.jpeg",
+      "options": [
+        "нет в наличии"
+      ]
+    },
+    {
+      "id": "1790352461036",
+      "name": "Жидкость ELFLIQ",
+      "price": 0,
+      "categoryId": "liquids",
+      "image": "images/img_1790352648875_vxnyjrq.jpeg",
+      "options": [
+        "нет в наличии"
+      ]
+    },
+    {
+      "id": "1790352461869",
+      "name": "Жидкость PODONKI АНАРХИЯ ",
+      "price": 0,
+      "categoryId": "liquids",
+      "image": "images/img_1790352651010_o12jepj.jpeg",
+      "options": [
+        "нет в наличии"
+      ]
+    },
+    {
+      "id": "1790352463135",
+      "name": "Жидкость PODONKI V1/V2",
+      "price": 0,
+      "categoryId": "liquids",
+      "image": "images/img_1790352652536_18v3txk.jpeg",
+      "options": [
+        "нет в наличии"
+      ]
+    },
+    {
+      "id": "1790352464736",
+      "name": "Жидкость OGGO REELS",
+      "price": 0,
+      "categoryId": "liquids",
+      "image": "images/img_1790352654135_tj48dgu.jpeg",
       "options": [
         "нет в наличии"
       ]
