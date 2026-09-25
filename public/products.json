@@ -273,11 +273,14 @@
     {
       "id": "1790352407745",
       "name": "Никотиновые пластинки LOOP DOZA",
-      "price": 0,
+      "price": 999,
       "categoryId": "snus",
       "image": "images/img_1790352451366_mwbg788.jpeg",
       "options": [
-        "нет в наличии"
+        "ENERGY",
+        "COLA",
+        "IZABELLA",
+        "RASPBERRY"
       ]
     },
     {
