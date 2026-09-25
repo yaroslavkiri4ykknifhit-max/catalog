@@ -201,7 +201,7 @@
     {
       "id": "1790348765862",
       "name": "ELFBAR 22K",
-      "price": 0,
+      "price": 999,
       "categoryId": "disposables",
       "image": "images/img_1790351329599_9egle6p.jpeg",
       "options": [
@@ -211,7 +211,7 @@
     {
       "id": "1790348815175",
       "name": "ELFBAR 33K",
-      "price": 0,
+      "price": 999,
       "categoryId": "disposables",
       "image": "images/img_1790351331542_o8f30u9.jpeg",
       "options": [
