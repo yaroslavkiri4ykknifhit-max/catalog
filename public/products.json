@@ -190,7 +190,7 @@
     },
     {
       "id": "1788798931791",
-      "name": "Жид ость Dota",
+      "name": "Жидкость Dota",
       "price": 15,
       "categoryId": "liquids",
       "image": "images/img_1788799758081_cnd0uxo.jpeg",
@@ -214,6 +214,16 @@
       "price": 0,
       "categoryId": "disposables",
       "image": "images/img_1790348849404_zolemn3.jpeg",
+      "options": [
+        "нет в наличии"
+      ]
+    },
+    {
+      "id": "1790349429608",
+      "name": "Жидкость OGGO",
+      "price": 0,
+      "categoryId": "liquids",
+      "image": "images/img_1790349641355_946uxqo.jpeg",
       "options": [
         "нет в наличии"
       ]
