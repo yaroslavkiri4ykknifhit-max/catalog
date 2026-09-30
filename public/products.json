@@ -222,7 +222,7 @@
     {
       "id": "1790349429608",
       "name": "Жидкость OGGO SOUR",
-      "price": 999,
+      "price": 16,
       "categoryId": "liquids",
       "image": "images/img_1790349641355_946uxqo.jpeg",
       "options": [
@@ -234,7 +234,7 @@
     {
       "id": "1790349892857",
       "name": "Снюс DRYMOST 150мг",
-      "price": 0,
+      "price": 17,
       "categoryId": "snus",
       "image": "images/img_1790350004632_xrp03x1.jpeg",
       "options": [
@@ -244,7 +244,7 @@
     {
       "id": "1790349893655",
       "name": "Снюс DRYMOST 175мг",
-      "price": 0,
+      "price": 17,
       "categoryId": "snus",
       "image": "images/img_1790350007102_z8ktx8d.jpeg",
       "options": [
@@ -254,7 +254,7 @@
     {
       "id": "1790349900701",
       "name": "Снюс DRYMOST 200мг",
-      "price": 0,
+      "price": 17,
       "categoryId": "snus",
       "image": "images/img_1790350009068_io0ag9v.jpeg",
       "options": [
@@ -264,7 +264,7 @@
     {
       "id": "1790352266550",
       "name": "XROS 6 MINI",
-      "price": 0,
+      "price": 75,
       "categoryId": "pod-systems",
       "image": "images/img_1790352300711_6gj42cw.jpeg",
       "options": [
@@ -274,7 +274,7 @@
     {
       "id": "1790352407745",
       "name": "Никотиновые пластинки LOOP DOZA",
-      "price": 999,
+      "price": 15,
       "categoryId": "snus",
       "image": "images/img_1790352451366_mwbg788.jpeg",
       "options": [
@@ -287,7 +287,7 @@
     {
       "id": "1790352461036",
       "name": "Жидкость ELFLIQ",
-      "price": 999,
+      "price": 17,
       "categoryId": "liquids",
       "image": "images/img_1790352648875_vxnyjrq.jpeg",
       "options": [
@@ -305,7 +305,7 @@
     {
       "id": "1790352461869",
       "name": "Жидкость PODONKI АНАРХИЯ ",
-      "price": 999,
+      "price": 15,
       "categoryId": "liquids",
       "image": "images/img_1790352651010_o12jepj.jpeg",
       "options": [
@@ -319,7 +319,7 @@
     {
       "id": "1790352463135",
       "name": "Жидкость PODONKI V1/V2",
-      "price": 999,
+      "price": 15,
       "categoryId": "liquids",
       "image": "images/img_1790352652536_18v3txk.jpeg",
       "options": [
@@ -336,7 +336,7 @@
     {
       "id": "1790352464736",
       "name": "Жидкость OGGO REELS",
-      "price": 999,
+      "price": 16,
       "categoryId": "liquids",
       "image": "images/img_1790352654135_tj48dgu.jpeg",
       "options": [
