@@ -221,8 +221,7 @@
         "еживичный лимон",
         "манго персик",
         "пина колада",
-        "черника малина гранат",
-        "ягоды микс"
+        "черника малина гранат"
       ]
     },
     {
@@ -361,6 +360,20 @@
       "options": [
         "Black strong",
         "Cherry ice strong"
+      ]
+    },
+    {
+      "id": "1792956700900",
+      "name": "Жидкость ELFLIQ & SLIME",
+      "price": 17,
+      "categoryId": "liquids",
+      "image": "images/img_1792956763390_ttsuulr.jpeg",
+      "options": [
+        "Mango peach watermelon",
+        "Blackcurrant sour soda",
+        "Incredible fruit",
+        "Red lemonade",
+        "Melon blueberry"
       ]
     }
   ]
