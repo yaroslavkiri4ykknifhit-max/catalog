@@ -341,6 +341,27 @@
         "Оригинал",
         "Классика"
       ]
+    },
+    {
+      "id": "1792941855698",
+      "name": "Жидкость Catswill extra",
+      "price": 14,
+      "categoryId": "liquids",
+      "image": "images/img_1792941972986_lxioww4.jpeg",
+      "options": [
+        "Мятный ментос"
+      ]
+    },
+    {
+      "id": "1792941856147",
+      "name": "ICEBERG STRONG/ULTRA",
+      "price": 16,
+      "categoryId": "snus",
+      "image": "images/img_1792941975005_9ltlaml.jpeg",
+      "options": [
+        "Black strong",
+        "Cherry ice strong"
+      ]
     }
   ]
 }
