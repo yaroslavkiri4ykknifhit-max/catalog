@@ -76,9 +76,7 @@
       "price": 16,
       "image": "images/img_1790344900098_rd71vc0.jpeg",
       "options": [
-        "Энергетик с грейпфрутом и гранатом",
-        "Ежевика с шелковицей",
-        "Малиновая жвачка"
+        "Нет в наличии"
       ]
     },
     {
@@ -88,10 +86,6 @@
       "price": 16,
       "image": "images/img_1788767097428_5d4j1gn.jpeg",
       "options": [
-        "Абрикос жвачка Ice",
-        "Земляника лёд",
-        "Энергетик еживика лёд Ice",
-        "лимонад из малины и черники Ice",
         "Ананас ежевика"
       ]
     },
@@ -204,7 +198,6 @@
       "categoryId": "disposables",
       "image": "images/img_1790351329599_9egle6p.jpeg",
       "options": [
-        "WATERMELON",
         "JASMINE RASPBERRY"
       ]
     },
@@ -215,7 +208,7 @@
       "categoryId": "disposables",
       "image": "images/img_1790351331542_o8f30u9.jpeg",
       "options": [
-        "Pomegranate Burst"
+        "Нет в наличии"
       ]
     },
     {
@@ -231,53 +224,13 @@
       ]
     },
     {
-      "id": "1790349892857",
-      "name": "Снюс DRYMOST 150мг",
-      "price": 17,
-      "categoryId": "snus",
-      "image": "images/img_1790350004632_xrp03x1.jpeg",
-      "options": [
-        "нет в наличии"
-      ]
-    },
-    {
-      "id": "1790349893655",
-      "name": "Снюс DRYMOST 175мг",
-      "price": 17,
-      "categoryId": "snus",
-      "image": "images/img_1790350007102_z8ktx8d.jpeg",
-      "options": [
-        "нет в наличии"
-      ]
-    },
-    {
-      "id": "1790349900701",
-      "name": "Снюс DRYMOST 200мг",
-      "price": 17,
-      "categoryId": "snus",
-      "image": "images/img_1790350009068_io0ag9v.jpeg",
-      "options": [
-        "нет в наличии"
-      ]
-    },
-    {
       "id": "1790352266550",
       "name": "XROS 6 MINI",
       "price": 75,
       "categoryId": "pod-systems",
       "image": "images/img_1790352300711_6gj42cw.jpeg",
       "options": [
-        "нет в наличии"
-      ]
-    },
-    {
-      "id": "1790352407745",
-      "name": "Никотиновые пластинки LOOP DOZA",
-      "price": 15,
-      "categoryId": "snus",
-      "image": "images/img_1790743615349_tor82wi.jpeg",
-      "options": [
-        "нет в наличии"
+        "Brown"
       ]
     },
     {
@@ -341,6 +294,52 @@
         "Клубника личи",
         "Маракуя апельсин гуава",
         "Сладкий манго"
+      ]
+    },
+    {
+      "id": "1792913060671",
+      "name": "Одноразка ELFBAR DUKE 30К",
+      "price": 45,
+      "categoryId": "disposables",
+      "image": "images/img_1792913413306_x6067ra.jpeg"
+    },
+    {
+      "id": "1792913061234",
+      "name": "Снюс ICEBERG ULTRA 150mg",
+      "price": 17,
+      "categoryId": "snus",
+      "image": "images/img_1792913415394_kg0irit.jpeg"
+    },
+    {
+      "id": "1792913061736",
+      "name": "Снюс ICEBERG RISING SUN ULTRA 150mg",
+      "price": 17,
+      "categoryId": "snus",
+      "image": "images/img_1792913416987_41i00ai.jpeg"
+    },
+    {
+      "id": "1792913062218",
+      "name": "Снюс ICEBERG HOT ACE 150mg",
+      "price": 17,
+      "categoryId": "snus",
+      "image": "images/img_1792913418594_8b06f15.jpeg"
+    },
+    {
+      "id": "1792913330683",
+      "name": "Жидкость HQD",
+      "price": 17,
+      "categoryId": "liquids",
+      "image": "images/img_1792913420319_yafbt5i.jpeg"
+    },
+    {
+      "id": "1792913331154",
+      "name": "LOOP & LIT ENERGY STRONG ",
+      "price": 16,
+      "categoryId": "cartridges",
+      "image": "images/img_1792913421805_hoqxp1d.jpeg",
+      "options": [
+        "Оригинал",
+        "Классика"
       ]
     }
   ]
