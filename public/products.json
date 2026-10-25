@@ -245,14 +245,13 @@
       "categoryId": "liquids",
       "image": "images/img_1790352652536_18v3txk.jpeg",
       "options": [
-        "Лесные ягоды",
-        "Малина вишня",
-        "Смородиновый холс",
         "Черника малина мята",
-        "Клубника малина жвачка",
-        "Брусника малина клюква",
-        "Ананасовый энергетик",
-        "Лимонад смородина"
+        "тропические фрукты со льдом",
+        "малиновый лимонад",
+        "лимонад смородиновый",
+        "жвачка абрикос",
+        "брусника клюква малина",
+        "ананас энергетик"
       ]
     },
     {
@@ -262,11 +261,9 @@
       "categoryId": "liquids",
       "image": "images/img_1790352654135_tj48dgu.jpeg",
       "options": [
-        "Папайя банан",
-        "Пина колада",
-        "Клубника личи",
-        "Маракуя апельсин гуава",
-        "Сладкий манго"
+        "маракуя апельсин гуава",
+        "папайя банан",
+        "сладкий манго"
       ]
     },
     {
@@ -274,35 +271,65 @@
       "name": "Одноразка ELFBAR DUKE 30К",
       "price": 45,
       "categoryId": "disposables",
-      "image": "images/img_1792913413306_x6067ra.jpeg"
+      "image": "images/img_1792913413306_x6067ra.jpeg",
+      "options": [
+        "Северные ягоды"
+      ]
     },
     {
       "id": "1792913061234",
       "name": "Снюс ICEBERG ULTRA 150mg",
       "price": 17,
       "categoryId": "snus",
-      "image": "images/img_1792913415394_kg0irit.jpeg"
+      "image": "images/img_1792913415394_kg0irit.jpeg",
+      "options": [
+        "Cranberry tea",
+        "Crazy mix",
+        "Dragon fire",
+        "Emerald",
+        "raspberry tea",
+        "winter green",
+        "hokey limited edition"
+      ]
     },
     {
       "id": "1792913061736",
       "name": "Снюс ICEBERG RISING SUN ULTRA 150mg",
       "price": 17,
       "categoryId": "snus",
-      "image": "images/img_1792913416987_41i00ai.jpeg"
+      "image": "images/img_1792913416987_41i00ai.jpeg",
+      "options": [
+        "Energy mango",
+        "Strawberry-Pomegranate",
+        "Sweet mint"
+      ]
     },
     {
       "id": "1792913062218",
       "name": "Снюс ICEBERG HOT ACE 150mg",
       "price": 17,
       "categoryId": "snus",
-      "image": "images/img_1792913418594_8b06f15.jpeg"
+      "image": "images/img_1792913418594_8b06f15.jpeg",
+      "options": [
+        "blueberry",
+        "Lime soda",
+        "Mango",
+        "Pineapple"
+      ]
     },
     {
       "id": "1792913330683",
       "name": "Жидкость HQD",
       "price": 17,
       "categoryId": "liquids",
-      "image": "images/img_1792913420319_yafbt5i.jpeg"
+      "image": "images/img_1792913420319_yafbt5i.jpeg",
+      "options": [
+        "Fizzy cherry",
+        "Orange soda",
+        "Strawberry raspberry cherry ice",
+        "Grapey",
+        "Grape mint"
+      ]
     },
     {
       "id": "1792913331154",
