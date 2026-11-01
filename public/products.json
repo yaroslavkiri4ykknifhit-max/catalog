@@ -220,8 +220,7 @@
         "голубой лимонад",
         "еживичный лимон",
         "манго персик",
-        "пина колада",
-        "черника малина гранат"
+        "пина колада"
       ]
     },
     {
@@ -322,7 +321,6 @@
       "categoryId": "liquids",
       "image": "images/img_1792913420319_yafbt5i.jpeg",
       "options": [
-        "Fizzy cherry",
         "Orange soda",
         "Strawberry raspberry cherry ice",
         "Grapey",
@@ -370,7 +368,6 @@
       "options": [
         "Mango peach watermelon",
         "Blackcurrant sour soda",
-        "Incredible fruit",
         "Red lemonade",
         "Melon blueberry"
       ]
